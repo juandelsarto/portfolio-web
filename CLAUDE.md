@@ -24,7 +24,29 @@ Next.js (App Router) · TypeScript estricto · pnpm · Tailwind v4 + shadcn/ui (
 
 ## Comandos
 
-Se completan en la Etapa 1, al inicializar el proyecto (`pnpm dev`, `pnpm build`, `pnpm lint`, `pnpm test`, `pnpm test:e2e`).
+Node 22 y pnpm (versión fijada en `packageManager`; activar con `corepack enable`).
+
+- `pnpm install`: instala dependencias.
+- `pnpm dev`: servidor local en http://localhost:3000.
+- `pnpm build` / `pnpm start`: build de producción y servidor.
+- `pnpm lint`: ESLint.
+- `pnpm typecheck`: genera los tipos de rutas de Next (`next typegen`) y corre `tsc --noEmit`.
+- `pnpm test`: tests unitarios con Vitest (`tests/unit/` y `src/**/*.test.ts`).
+- `pnpm test:e2e`: tests end-to-end con Playwright (`tests/e2e/`); la primera vez, `pnpm exec playwright install chromium`.
+
+El CI (`.github/workflows/ci.yml`) corre install, lint, typecheck, test y build en cada PR.
+
+## Estructura
+
+- `src/app`: rutas (App Router).
+- `src/components/ui`: componentes de shadcn/ui.
+- `src/components/site`: componentes propios del sitio.
+- `src/styles/tokens`: tokens de diseño (Etapa 1).
+- `src/content`: casos en MDX.
+- `src/lib`: utilidades y configuración (`site.ts`: nombre, metadatos, `indexable`).
+- `tests/unit` y `tests/e2e`.
+
+Next.js 16 tiene cambios respecto de versiones anteriores: leer `AGENTS.md` y la guía en `node_modules/next/dist/docs/` antes de usar una API que no conozcas.
 
 ## Flujo de trabajo
 
