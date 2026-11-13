@@ -8,11 +8,11 @@
 
 ## Capturas por skin
 
-| Skin | Mobile (390 px) | Desktop (1440 px) |
-| --- | --- | --- |
-| Core claro | | |
-| Core oscuro | | |
-| Neubrutalista | | |
+| Skin          | Mobile (390 px) | Desktop (1440 px) |
+| ------------- | --------------- | ----------------- |
+| Core claro    |                 |                   |
+| Core oscuro   |                 |                   |
+| Neubrutalista |                 |                   |
 
 ## Checklist
 
