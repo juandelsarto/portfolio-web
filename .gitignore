@@ -1,0 +1,33 @@
+# dependencias
+node_modules/
+.pnpm-store/
+
+# Next.js y build
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# tests
+coverage/
+playwright-report/
+test-results/
+blob-report/
+
+# variables de entorno
+.env
+.env*.local
+
+# Vercel
+.vercel
+
+# logs y sistema
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
+*.pem
