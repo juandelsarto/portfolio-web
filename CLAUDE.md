@@ -29,24 +29,33 @@ Node 22 y pnpm (versión fijada en `packageManager`; activar con `corepack enabl
 - `pnpm install`: instala dependencias.
 - `pnpm dev`: servidor local en http://localhost:3000.
 - `pnpm build` / `pnpm start`: build de producción y servidor.
-- `pnpm lint`: ESLint.
+- `pnpm lint`: ESLint (Next, TypeScript y jsx-a11y recomendado).
+- `pnpm format` / `pnpm format:check`: Prettier (ordena las clases de Tailwind).
 - `pnpm typecheck`: genera los tipos de rutas de Next (`next typegen`) y corre `tsc --noEmit`.
 - `pnpm test`: tests unitarios con Vitest (`tests/unit/` y `src/**/*.test.ts`).
 - `pnpm test:e2e`: tests end-to-end con Playwright (`tests/e2e/`); la primera vez, `pnpm exec playwright install chromium`.
 
-El CI (`.github/workflows/ci.yml`) corre install, lint, typecheck, test y build en cada PR.
+El CI (`.github/workflows/ci.yml`) corre install, lint, formato, typecheck, test y build en cada PR. Husky + lint-staged corren ESLint y Prettier sobre los archivos del commit.
 
 ## Estructura
 
 - `src/app`: rutas (App Router).
 - `src/components/ui`: componentes de shadcn/ui.
 - `src/components/site`: componentes propios del sitio.
-- `src/styles/tokens`: tokens de diseño (Etapa 1).
+- `src/styles/globals.css`: Tailwind v4 (CSS-first), `@theme inline` que conecta las variables con las utilidades y la variante `dark` ligada a `data-theme="dark"`.
+- `src/styles/tokens`: tokens de diseño. Hoy hay solo `placeholder.css` (temporal) hasta la tarjeta "[E1] Implementar los tokens en CSS".
 - `src/content`: casos en MDX.
 - `src/lib`: utilidades y configuración (`site.ts`: nombre, metadatos, `indexable`).
 - `tests/unit` y `tests/e2e`.
+- `/dev/ui`: página interna para revisar componentes; da 404 en producción.
 
 Next.js 16 tiene cambios respecto de versiones anteriores: leer `AGENTS.md` y la guía en `node_modules/next/dist/docs/` antes de usar una API que no conozcas.
+
+## Estilos y componentes
+
+- **Regla:** nunca colores, radios, sombras ni tipografías sueltos (hex, `rgb()`, `bg-white`, `bg-zinc-500`, `rounded-[6px]`…). Siempre utilidades que salen de tokens (`bg-primary`, `text-muted-foreground`, `rounded-lg`).
+- **Agregar un componente de shadcn/ui:** `pnpm dlx shadcn@latest add <componente>` (usa `components.json`: estilo new-york, base neutral, `src/components/ui`). Después revisar el archivo generado y reemplazar cualquier color fijo por su token (por ejemplo, `text-white` → `text-destructive-foreground`), agregarlo a `/dev/ui` y correr `pnpm lint` y `pnpm test`.
+- Componentes propios del sitio en `src/components/site`, construidos sobre los de `ui`.
 
 ## Flujo de trabajo
 
