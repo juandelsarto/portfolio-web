@@ -1,0 +1,10 @@
+/*
+ * Se aplica solo al tomar las capturas de regresión visual (stylePath).
+ * El grano de papel de Editorial y Cassette es ruido: no se comprime y
+ * multiplica el peso de cada PNG. Se oculta en la captura; el contraste del
+ * texto con el grano lo sigue midiendo el test "el texto se lee sobre cada fondo".
+ */
+:root[data-skin="editorial"] .skin-section::after,
+:root[data-skin="cassette"] .skin-section::after {
+  display: none !important;
+}
