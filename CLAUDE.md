@@ -50,8 +50,10 @@ El CI (`.github/workflows/ci.yml`) tiene dos jobs en cada PR: **Lint, tipos, tes
 
 Las capturas se generan siempre en el CI (Linux): las de Windows o macOS no coinciden píxel a píxel. Cuando un cambio visual es intencional:
 
-1. En GitHub, **Actions → Actualizar capturas de skins → Run workflow**, elegir la rama del PR.
-2. El workflow regenera las capturas y las commitea en esa rama.
+1. Lanzar el workflow **Actualizar capturas de skins**, de una de dos formas:
+   - En GitHub, **Actions → Actualizar capturas de skins → Run workflow**, eligiendo la rama del PR.
+   - Con un commit en la rama cuyo mensaje incluya `[actualizar capturas]` (sirve un commit vacío: `git commit --allow-empty -m "test: [actualizar capturas]"`).
+2. El workflow regenera las capturas en Linux y las commitea en esa rama.
 3. Volver a correr el CI del PR (el commit del workflow no lo dispara solo) y revisar las capturas en el diff del PR antes de aprobar.
 
 Si el CI de skins falla por capturas, el artefacto `playwright-skins` del job trae la esperada, la nueva y la diferencia.
