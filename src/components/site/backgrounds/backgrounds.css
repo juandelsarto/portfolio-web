@@ -120,7 +120,7 @@
     repeating-linear-gradient(
       180deg,
       transparent 0 31px,
-      color-mix(in oklab, var(--skin-border) 85%, transparent) 31px 32px
+      color-mix(in oklab, var(--skin-border) 60%, transparent) 31px 32px
     );
 }
 :root[data-skin="editorial"] .skin-section--contrast::before {
@@ -215,12 +215,12 @@
   background:
     radial-gradient(
       45% 60% at 0% 0%,
-      color-mix(in oklab, var(--skin-alt-3) 45%, transparent),
+      color-mix(in oklab, var(--skin-alt-3) 28%, transparent),
       transparent 70%
     ),
     radial-gradient(
       40% 55% at 100% 15%,
-      color-mix(in oklab, var(--skin-alt-2) 45%, transparent),
+      color-mix(in oklab, var(--skin-alt-2) 32%, transparent),
       transparent 70%
     ),
     radial-gradient(
@@ -273,6 +273,17 @@
 }
 :root[data-skin="cassette"] .skin-section--contrast::after {
   opacity: 0.09;
+}
+
+/*
+ * Tope de intensidad en las secciones tonales: el texto chico (text-muted)
+ * tiene poco margen sobre surface-raised, así que el grano baja acá.
+ * Lo controla el CI de skins (tests/e2e/skins.spec.ts). Va al final para
+ * ganarle a las reglas de grano de cada skin.
+ */
+:root[data-skin="editorial"] .skin-section--tonal::after,
+:root[data-skin="cassette"] .skin-section--tonal::after {
+  opacity: 0.035;
 }
 
 @media (prefers-reduced-motion: reduce) {
