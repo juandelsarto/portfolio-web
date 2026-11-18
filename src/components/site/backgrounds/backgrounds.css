@@ -1,0 +1,282 @@
+/*
+ * Fondos por skin (tarjeta [E2] fondo y motion interactivos).
+ *
+ * Tres fondos por skin, todos con los colores de palettes.css:
+ * - .skin-section--hero: canvas animado (HeroBackground) + velo detrás del texto.
+ * - .skin-section--tonal: mismo tema; surface-raised y un patrón suave.
+ * - .skin-section--contrast: tema opuesto. Las reglas de patrón son las mismas que
+ *   en tonal o hero: como palettes.css redefine las variables dentro de esta
+ *   sección, var(--skin-*) ya resuelve a los colores del otro tema.
+ *
+ * Los patrones viven en ::before (y el grano en ::after), detrás del contenido.
+ * Las imágenes data: son máscaras sin color: el color sale de la paleta.
+ */
+@import "./palettes.css";
+
+.skin-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--skin-bg);
+  color: var(--skin-text-primary);
+  transition-property: background-color, color;
+  transition-duration: var(--motion-duration-base, 200ms);
+  transition-timing-function: var(--motion-easing-standard, ease);
+}
+.skin-section::before,
+.skin-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.skin-section--tonal {
+  background-color: var(--skin-surface-raised);
+}
+
+/* ── Hero ── */
+.skin-section--hero {
+  /* Tope de intensidad detrás del texto: el velo cubre del 82 % al 0 %. */
+  --skin-scrim-start: 82%;
+  --skin-scrim-mid: 50%;
+}
+.skin-hero-layer {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+.skin-hero-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.skin-hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--skin-bg) var(--skin-scrim-start), transparent) 0%,
+    color-mix(in oklab, var(--skin-bg) var(--skin-scrim-mid), transparent) 42%,
+    transparent 72%
+  );
+}
+@media (max-width: 47.99rem) {
+  .skin-hero-scrim {
+    background: linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--skin-bg) 85%, transparent) 10%,
+      color-mix(in oklab, var(--skin-bg) 55%, transparent) 60%,
+      transparent
+    );
+  }
+}
+
+/* ── Core ── */
+:is(:root:not([data-skin]), :root[data-skin="core"])
+  .skin-section--tonal::before {
+  background-image:
+    linear-gradient(
+      color-mix(in oklab, var(--skin-border) 90%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--skin-border) 90%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 56px 56px;
+  background-position: -1px -1px;
+  mask-image: radial-gradient(120% 90% at 85% 0%, #000 20%, transparent 75%);
+}
+:is(:root:not([data-skin]), :root[data-skin="core"]) .skin-section--contrast {
+  box-shadow: inset 0 4px 0 var(--skin-accent-fill);
+}
+:is(:root:not([data-skin]), :root[data-skin="core"])
+  .skin-section--contrast::before {
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--skin-text-muted) 45%, transparent) 1.1px,
+    transparent 1.7px
+  );
+  background-size: 20px 20px;
+  mask-image: linear-gradient(180deg, #000, transparent 80%);
+}
+
+/* ── Editorial ── */
+:root[data-skin="editorial"] .skin-section::after {
+  background-color: var(--skin-text-primary);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.4 -.35'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.07;
+}
+:root[data-skin="editorial"] .skin-section--tonal::before {
+  /* Pautado de cuaderno con el margen en el acento. */
+  background:
+    linear-gradient(
+        color-mix(in oklab, var(--skin-accent) 35%, transparent),
+        color-mix(in oklab, var(--skin-accent) 35%, transparent)
+      )
+      2.5rem 0 / 1px 100% no-repeat,
+    repeating-linear-gradient(
+      180deg,
+      transparent 0 31px,
+      color-mix(in oklab, var(--skin-border) 85%, transparent) 31px 32px
+    );
+}
+:root[data-skin="editorial"] .skin-section--contrast::before {
+  background:
+    linear-gradient(var(--skin-border-strong), var(--skin-border-strong)) 0
+      18px / 100% 1px no-repeat,
+    linear-gradient(var(--skin-border-strong), var(--skin-border-strong)) 0
+      22px / 100% 1px no-repeat,
+    radial-gradient(
+      90% 70% at 50% 40%,
+      color-mix(in oklab, var(--skin-surface-raised) 70%, transparent),
+      transparent
+    );
+}
+:root[data-skin="editorial"] .skin-section--contrast::after {
+  opacity: 0.11;
+}
+
+/* ── Brutal ── */
+:root[data-skin="neubrutalista"] .skin-section--tonal {
+  background-color: var(--skin-surface);
+  border-block: 3px solid var(--skin-border-strong);
+}
+:root[data-skin="neubrutalista"] .skin-section--tonal::before {
+  background-image: repeating-linear-gradient(
+    45deg,
+    color-mix(in oklab, var(--skin-border) 13%, transparent) 0 2px,
+    transparent 2px 14px
+  );
+}
+:root[data-skin="neubrutalista"] .skin-section--contrast {
+  border-block: 3px solid var(--skin-border-strong);
+}
+:root[data-skin="neubrutalista"] .skin-section--contrast::before {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--skin-text-primary) 30%, transparent) 2.4px,
+    transparent 2.9px
+  );
+  background-size: 14px 14px;
+  mask-image: linear-gradient(135deg, transparent 35%, #000 100%);
+}
+
+/* ── Neon ── */
+:root[data-skin="neon"] .skin-section--tonal {
+  background-color: var(--skin-surface);
+  box-shadow: inset 0 1px 0
+    color-mix(in oklab, var(--skin-accent) 55%, transparent);
+}
+:root[data-skin="neon"] .skin-section--tonal::before {
+  background:
+    repeating-linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--skin-text-primary) 4%, transparent) 0 1px,
+      transparent 1px 3px
+    ),
+    radial-gradient(
+      70% 55% at 50% 0%,
+      color-mix(in oklab, var(--skin-accent) 14%, transparent),
+      transparent 70%
+    );
+}
+:root[data-skin="neon"] .skin-section--contrast {
+  box-shadow: inset 0 1px 0
+    color-mix(in oklab, var(--skin-accent) 55%, transparent);
+}
+:root[data-skin="neon"] .skin-section--contrast::before {
+  background:
+    linear-gradient(
+        color-mix(in oklab, var(--skin-accent) 11%, transparent) 1px,
+        transparent 1px
+      )
+      0 0 / 40px 40px,
+    linear-gradient(
+        90deg,
+        color-mix(in oklab, var(--skin-accent) 11%, transparent) 1px,
+        transparent 1px
+      )
+      0 0 / 40px 40px;
+  mask-image: radial-gradient(80% 70% at 50% 60%, #000, transparent 80%);
+}
+:root[data-skin="neon"] .skin-section--contrast::after {
+  background: radial-gradient(
+    60% 60% at 100% 100%,
+    color-mix(in oklab, var(--skin-secondary) 20%, transparent),
+    transparent 70%
+  );
+}
+
+/* ── Y2K ── */
+:root[data-skin="y2k"] .skin-section--tonal::before {
+  background:
+    radial-gradient(
+      45% 60% at 0% 0%,
+      color-mix(in oklab, var(--skin-alt-3) 45%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      40% 55% at 100% 15%,
+      color-mix(in oklab, var(--skin-alt-2) 45%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      50% 50% at 75% 110%,
+      color-mix(in oklab, var(--skin-secondary-fill) 22%, transparent),
+      transparent 70%
+    );
+}
+:root[data-skin="y2k"] .skin-section--contrast::before {
+  background-color: var(--skin-alt-3);
+  opacity: 0.32;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cpath d='M40 18 Q42 38 62 40 Q42 42 40 62 Q38 42 18 40 Q38 38 40 18Z'/%3E%3Cpath d='M160 120 Q161 133 174 134 Q161 135 160 148 Q159 135 146 134 Q159 133 160 120Z'/%3E%3Cpath d='M110 180 Q110.6 187 118 188 Q110.6 189 110 196 Q109.4 189 102 188 Q109.4 187 110 180Z'/%3E%3Cpath d='M190 30 Q190.5 36 196 36.5 Q190.5 37 190 43 Q189.5 37 184 36.5 Q189.5 36 190 30Z'/%3E%3C/svg%3E");
+  mask-size: 300px;
+}
+:root[data-skin="y2k"] .skin-section--contrast::after {
+  background: radial-gradient(
+    70% 60% at 50% 0%,
+    color-mix(in oklab, var(--skin-accent-fill) 38%, transparent),
+    transparent 70%
+  );
+}
+
+/* ── Cassette ── */
+:root[data-skin="cassette"] .skin-section::after {
+  background-color: var(--skin-text-primary);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.4 -.35'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.06;
+}
+:root[data-skin="cassette"] .skin-section--tonal::before {
+  background: linear-gradient(
+      180deg,
+      var(--skin-alt-1) 0 8px,
+      var(--skin-accent-fill) 8px 16px,
+      var(--skin-alt-3) 16px 24px,
+      var(--skin-alt-2) 24px 32px,
+      transparent 32px
+    )
+    top / 100% 32px no-repeat;
+}
+:root[data-skin="cassette"] .skin-section--contrast::before {
+  background: linear-gradient(
+      0deg,
+      var(--skin-alt-1) 0 8px,
+      var(--skin-accent-fill) 8px 16px,
+      var(--skin-alt-3) 16px 24px,
+      var(--skin-alt-2) 24px 32px,
+      transparent 32px
+    )
+    bottom / 100% 32px no-repeat;
+}
+:root[data-skin="cassette"] .skin-section--contrast::after {
+  opacity: 0.09;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skin-section {
+    transition: none;
+  }
+}
