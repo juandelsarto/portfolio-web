@@ -73,12 +73,13 @@ export function createHeroEngine(
   function readSkin() {
     const value = root.dataset.skin;
     const nextSkin: Skin = isSkin(value) ? value : "core";
+    readColors();
     if (nextSkin !== skin) {
       skin = nextSkin;
       scene = SCENES[skin]();
-      scene.init?.({ w, h });
+      // Cada escena puede pedir otra resolución: se recalcula el tamaño.
+      if (w) resize();
     }
-    readColors();
   }
 
   function centerPointer() {
@@ -88,7 +89,8 @@ export function createHeroEngine(
 
   function resize() {
     const rect = canvas.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
+    const dpr =
+      Math.min(window.devicePixelRatio || 1, MAX_DPR) * (scene.resolution ?? 1);
     w = rect.width;
     h = rect.height;
     canvas.width = Math.round(w * dpr);
@@ -100,6 +102,11 @@ export function createHeroEngine(
   }
 
   function frame(now: number, once = false) {
+    const minGap = scene.maxFps ? 1000 / scene.maxFps - 2 : 0;
+    if (!once && last && now - last < minGap) {
+      raf = requestAnimationFrame(frame);
+      return;
+    }
     const dt = Math.min(0.05, (now - (last || now)) / 1000);
     last = now;
     if (!reduced) {

@@ -42,11 +42,34 @@ export interface FrameInput {
 }
 
 export interface Scene {
+  /**
+   * Resolución del canvas relativa a la pantalla (1 = nítido). Las escenas
+   * borrosas por naturaleza se dibujan más chicas y el navegador las escala.
+   */
+  resolution?: number;
+  /** Tope de cuadros por segundo para escenas lentas y caras. */
+  maxFps?: number;
   init?: (input: { w: number; h: number }) => void;
   draw: (ctx: CanvasRenderingContext2D, input: FrameInput) => void;
 }
 
 const TAU = Math.PI * 2;
+
+/**
+ * Números pseudoaleatorios con semilla fija (mulberry32): las estrellas y los
+ * destellos quedan siempre en el mismo lugar, así el cuadro estático de
+ * movimiento reducido es idéntico en cada carga y en las capturas del CI.
+ */
+export function seededRandom(seed: number): () => number {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
 
 /** Color con opacidad para el canvas. */
 export function rgba([r, g, b]: Rgb, a: number): string {
@@ -71,6 +94,8 @@ function core(): Scene {
     draw(c, { w, h, t, pointer: p, colors }) {
       const sp = 26;
       const R = 180;
+      // Los puntos lejanos van en un solo path; los cercanos al puntero, sueltos.
+      const far = new Path2D();
       for (let y = sp / 2; y < h + sp; y += sp) {
         for (let x = sp / 2; x < w + sp; x += sp) {
           const wy = y + Math.sin(t * 0.7 + x * 0.012) * 2.5;
@@ -78,21 +103,22 @@ function core(): Scene {
           const dy = wy - p.y;
           const d = Math.hypot(dx, dy) || 1;
           const f = smooth(1 - d / R);
-          c.fillStyle =
-            f > 0.04
-              ? rgba(colors.accent, 0.28 + f * 0.72)
-              : rgba(colors["text-muted"], 0.38);
-          c.beginPath();
-          c.arc(
-            x + (dx / d) * f * 20,
-            wy + (dy / d) * f * 20,
-            1.25 + f * 3,
-            0,
-            TAU,
-          );
-          c.fill();
+          const X = x + (dx / d) * f * 20;
+          const Y = wy + (dy / d) * f * 20;
+          const r = 1.25 + f * 3;
+          if (f > 0.04) {
+            c.fillStyle = rgba(colors.accent, 0.28 + f * 0.72);
+            c.beginPath();
+            c.arc(X, Y, r, 0, TAU);
+            c.fill();
+          } else {
+            far.moveTo(X + r, Y);
+            far.arc(X, Y, r, 0, TAU);
+          }
         }
       }
+      c.fillStyle = rgba(colors["text-muted"], 0.38);
+      c.fill(far);
     },
   };
 }
@@ -131,6 +157,8 @@ function editorial(): Scene {
 /** Brutal · semitono de impresión con una capa de acento desregistrada. */
 function neubrutalista(): Scene {
   return {
+    // El semitono se mueve lento: a 30 fps se ve igual y cuesta la mitad.
+    maxFps: 30,
     draw(c, { w, h, t, pointer: p, colors }) {
       const cell = 18;
       const R = 220;
@@ -155,6 +183,7 @@ function neubrutalista(): Scene {
               r *= 1.05;
             }
             r = Math.min(r, cell * 0.62);
+            if (r < 0.3) continue;
             const o = pass ? 0 : 4 + f * 4;
             c.beginPath();
             c.arc(x + o, y + o, r, 0, TAU);
@@ -171,11 +200,12 @@ function neon(): Scene {
   let stars: { x: number; y: number; p: number; s: number }[] = [];
   return {
     init() {
+      const rand = seededRandom(7);
       stars = Array.from({ length: 110 }, () => ({
-        x: Math.random(),
-        y: Math.random(),
-        p: Math.random() * TAU,
-        s: Math.random() * 1.2 + 0.3,
+        x: rand(),
+        y: rand(),
+        p: rand() * TAU,
+        s: rand() * 1.2 + 0.3,
       }));
     },
     draw(c, { w, h, t, pointer: p, colors }) {
@@ -219,41 +249,44 @@ function neon(): Scene {
 
       c.fillStyle = rgba(colors.bg, 1);
       c.fillRect(0, hz, w, h - hz);
-      c.save();
-      c.shadowColor = rgba(colors.accent, 1);
-      c.shadowBlur = 10;
-      c.strokeStyle = rgba(colors.accent, 0.75);
-      c.lineWidth = 1.2;
+
+      // Glow sin shadowBlur (muy caro): cada trazo se dibuja ancho y tenue, y
+      // encima fino. Las líneas van agrupadas en pocos paths.
       const N = 18;
       const ph = (t * 0.35) % 1;
+      const rows: Path2D[] = [new Path2D(), new Path2D(), new Path2D()];
       for (let i = 0; i < N; i++) {
         const s = (i + ph) / N;
         const y = hz + (h - hz) * s * s;
-        c.globalAlpha = Math.min(1, s * 1.6);
-        c.beginPath();
-        c.moveTo(0, y);
-        c.lineTo(w, y);
-        c.stroke();
+        const row = rows[Math.min(2, Math.floor(s * 1.6 * 3))]!;
+        row.moveTo(0, y);
+        row.lineTo(w, y);
       }
-      c.globalAlpha = 1;
+      const cols = new Path2D();
       for (let j = -24; j <= 24; j++) {
-        c.beginPath();
-        c.moveTo(vx + j * 6, hz);
-        c.lineTo(vx + j * (w / 9), h + 40);
-        c.stroke();
+        cols.moveTo(vx + j * 6, hz);
+        cols.lineTo(vx + j * (w / 9), h + 40);
       }
-      c.restore();
+      const glow = (path: Path2D, alpha: number) => {
+        c.strokeStyle = rgba(colors.accent, alpha * 0.18);
+        c.lineWidth = 5;
+        c.stroke(path);
+        c.strokeStyle = rgba(colors.accent, alpha * 0.75);
+        c.lineWidth = 1.2;
+        c.stroke(path);
+      };
+      rows.forEach((row, k) => glow(row, (k + 1) / 3));
+      glow(cols, 1);
 
-      c.save();
-      c.shadowColor = rgba(colors.secondary, 1);
-      c.shadowBlur = 18;
+      const horizon = new Path2D();
+      horizon.moveTo(0, hz);
+      horizon.lineTo(w, hz);
+      c.strokeStyle = rgba(colors.secondary, 0.22);
+      c.lineWidth = 9;
+      c.stroke(horizon);
       c.strokeStyle = rgba(colors.secondary, 0.9);
       c.lineWidth = 1.5;
-      c.beginPath();
-      c.moveTo(0, hz);
-      c.lineTo(w, hz);
-      c.stroke();
-      c.restore();
+      c.stroke(horizon);
 
       g = c.createLinearGradient(0, hz - 40, 0, hz + 60);
       g.addColorStop(0, rgba(colors.bg, 0));
@@ -289,13 +322,15 @@ function y2k(): Scene {
   let ambient: { x: number; y: number; p: number; s: number }[] = [];
   let trail: { x: number; y: number; l: number; s: number; r: number }[] = [];
   return {
+    resolution: 0.5,
     init() {
       trail = [];
+      const rand = seededRandom(11);
       ambient = Array.from({ length: 14 }, () => ({
-        x: Math.random(),
-        y: Math.random(),
-        p: Math.random() * TAU,
-        s: 6 + Math.random() * 10,
+        x: rand(),
+        y: rand(),
+        p: rand() * TAU,
+        s: 6 + rand() * 10,
       }));
     },
     draw(c, { w, h, t, pointer: p, colors, reduced }) {
