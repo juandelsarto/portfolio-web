@@ -40,3 +40,41 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+  skins:
+    name: CI de skins (axe, contraste y capturas)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Instalar Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      # Un solo comando para construir el sitio una vez: e2e general y CI de
+      # skins (axe, texto sobre los fondos y regresión visual en 390 y 1440 px).
+      # El contraste de los tokens corre en "Tests unitarios" del job anterior.
+      - name: E2E y skins
+        run: pnpm exec playwright test
+
+      # Si falla, el reporte trae las capturas esperadas, las nuevas y la
+      # diferencia. Las capturas faltantes se escriben en __screenshots__.
+      - name: Subir reporte y capturas
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-skins
+          path: |
+            playwright-report/
+            test-results/
+            tests/e2e/__screenshots__/
+          retention-days: 7
