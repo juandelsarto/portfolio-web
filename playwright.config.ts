@@ -12,7 +12,33 @@ export default defineConfig({
     baseURL: `http://localhost:${PORT}`,
     trace: "on-first-retry",
   },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  // Capturas de referencia por proyecto. Se generan en el CI (Linux): ver CLAUDE.md.
+  snapshotPathTemplate: "{testDir}/__screenshots__/{projectName}/{arg}{ext}",
+  projects: [
+    {
+      name: "chromium",
+      testIgnore: /skins\.spec\.ts/,
+      use: { ...devices["Desktop Chrome"] },
+    },
+    // CI de skins: misma suite en 1440 y 390 px.
+    {
+      name: "skins-desktop",
+      testMatch: /skins\.spec\.ts/,
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: { width: 1440, height: 900 },
+      },
+    },
+    {
+      name: "skins-mobile",
+      testMatch: /skins\.spec\.ts/,
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: { width: 390, height: 844 },
+        hasTouch: true,
+      },
+    },
+  ],
   webServer: {
     command: `pnpm build && pnpm start --port ${PORT}`,
     url: `http://localhost:${PORT}`,

@@ -1,0 +1,54 @@
+name: Actualizar capturas de skins
+
+# Regenera las capturas de referencia del CI de skins en Linux (el mismo
+# entorno que las compara) y las commitea en la rama elegida.
+# Usar solo cuando un cambio visual es intencional. Ver CLAUDE.md.
+# Dos formas de lanzarlo:
+# - Actions → "Actualizar capturas de skins" → Run workflow (una vez en main).
+# - Un push a cualquier rama que no sea main con "[actualizar capturas]" en el
+#   mensaje del último commit.
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    name: Regenerar capturas
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[actualizar capturas]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Instalar Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Regenerar capturas
+        run: pnpm test:skins --grep "regresión visual" --update-snapshots=all
+
+      - name: Commitear
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add tests/e2e/__screenshots__
+          if git diff --cached --quiet; then
+            echo "Las capturas no cambiaron."
+          else
+            git commit -m "test: update skin screenshots"
+            git push
+          fi

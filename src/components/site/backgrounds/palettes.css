@@ -1,0 +1,336 @@
+/*
+ * PALETAS TEMPORALES DE LOS FONDOS (tarjeta [E2] fondo y motion interactivos).
+ *
+ * Copia de las variables de color de la página Skins de Figma (115:3560), con el
+ * prefijo --skin-. Solo las leen los fondos (hero, sección tonal y sección de
+ * contraste). Se reemplazan por los tokens semánticos cuando cierre la tarjeta
+ * "[E1] Pasar la fuente de tokens a DTCG y ampliar el contrato de skin".
+ *
+ * Selección: data-skin y data-theme en <html> (sin data-skin, Core).
+ * La sección de contraste carga el tema opuesto de la misma skin (ver OPPOSITE en
+ * skins.ts); en Neon, el otro preset (Neon ↔ Fósforo).
+ *
+ * Y2K · dark es una PROPUESTA derivada de sus tokens light: Figma no la define.
+ */
+:root {
+  --skin-accent: #c03b16;
+  --skin-accent-fill: #c03b16;
+  --skin-on-accent: #ffffff;
+  --skin-secondary: #041020;
+  --skin-secondary-fill: #041020;
+  --skin-on-secondary: #f8f8fa;
+  --skin-alt-1: #e7552e;
+  --skin-alt-2: #24364f;
+  --skin-alt-3: #dcdde3;
+  --skin-bg: #f8f8fa;
+  --skin-surface: #ffffff;
+  --skin-surface-raised: #eeeef2;
+  --skin-border: #dcdde3;
+  --skin-border-strong: #041020;
+  --skin-text-primary: #041020;
+  --skin-text-secondary: #2c3646;
+  --skin-text-muted: #566070;
+}
+:root[data-theme="dark"],
+:root:not([data-theme="dark"]) .skin-section--contrast {
+  --skin-accent: #e7552e;
+  --skin-accent-fill: #e7552e;
+  --skin-on-accent: #041020;
+  --skin-secondary: #f8f8fa;
+  --skin-secondary-fill: #f8f8fa;
+  --skin-on-secondary: #041020;
+  --skin-alt-1: #c03b16;
+  --skin-alt-2: #2c4466;
+  --skin-alt-3: #c9ccd4;
+  --skin-bg: #041020;
+  --skin-surface: #0b1a2e;
+  --skin-surface-raised: #13243b;
+  --skin-border: #22344d;
+  --skin-border-strong: #f8f8fa;
+  --skin-text-primary: #f8f8fa;
+  --skin-text-secondary: #c9ccd4;
+  --skin-text-muted: #9a9ea8;
+}
+:root[data-theme="dark"] .skin-section--contrast {
+  --skin-accent: #c03b16;
+  --skin-accent-fill: #c03b16;
+  --skin-on-accent: #ffffff;
+  --skin-secondary: #041020;
+  --skin-secondary-fill: #041020;
+  --skin-on-secondary: #f8f8fa;
+  --skin-alt-1: #e7552e;
+  --skin-alt-2: #24364f;
+  --skin-alt-3: #dcdde3;
+  --skin-bg: #f8f8fa;
+  --skin-surface: #ffffff;
+  --skin-surface-raised: #eeeef2;
+  --skin-border: #dcdde3;
+  --skin-border-strong: #041020;
+  --skin-text-primary: #041020;
+  --skin-text-secondary: #2c3646;
+  --skin-text-muted: #566070;
+}
+
+/* ── core ── */
+:root[data-skin="core"][data-theme="light"],
+:root[data-skin="core"]:not([data-theme]),
+:root[data-skin="core"][data-theme="dark"] .skin-section--contrast {
+  --skin-accent: #c03b16;
+  --skin-accent-fill: #c03b16;
+  --skin-on-accent: #ffffff;
+  --skin-secondary: #041020;
+  --skin-secondary-fill: #041020;
+  --skin-on-secondary: #f8f8fa;
+  --skin-alt-1: #e7552e;
+  --skin-alt-2: #24364f;
+  --skin-alt-3: #dcdde3;
+  --skin-bg: #f8f8fa;
+  --skin-surface: #ffffff;
+  --skin-surface-raised: #eeeef2;
+  --skin-border: #dcdde3;
+  --skin-border-strong: #041020;
+  --skin-text-primary: #041020;
+  --skin-text-secondary: #2c3646;
+  --skin-text-muted: #566070;
+}
+:root[data-skin="core"][data-theme="dark"],
+:root[data-skin="core"][data-theme="light"] .skin-section--contrast,
+:root[data-skin="core"]:not([data-theme]) .skin-section--contrast {
+  --skin-accent: #e7552e;
+  --skin-accent-fill: #e7552e;
+  --skin-on-accent: #041020;
+  --skin-secondary: #f8f8fa;
+  --skin-secondary-fill: #f8f8fa;
+  --skin-on-secondary: #041020;
+  --skin-alt-1: #c03b16;
+  --skin-alt-2: #2c4466;
+  --skin-alt-3: #c9ccd4;
+  --skin-bg: #041020;
+  --skin-surface: #0b1a2e;
+  --skin-surface-raised: #13243b;
+  --skin-border: #22344d;
+  --skin-border-strong: #f8f8fa;
+  --skin-text-primary: #f8f8fa;
+  --skin-text-secondary: #c9ccd4;
+  --skin-text-muted: #9a9ea8;
+}
+
+/* ── neubrutalista ── */
+:root[data-skin="neubrutalista"][data-theme="light"],
+:root[data-skin="neubrutalista"]:not([data-theme]),
+:root[data-skin="neubrutalista"][data-theme="dark"] .skin-section--contrast {
+  --skin-accent: #2f4bff;
+  --skin-accent-fill: #2f4bff;
+  --skin-on-accent: #ffffff;
+  --skin-secondary: #fffde6;
+  --skin-secondary-fill: #fff9bf;
+  --skin-on-secondary: #0a0a0a;
+  --skin-alt-1: #ff5fa2;
+  --skin-alt-2: #00d26a;
+  --skin-alt-3: #ff6b1a;
+  --skin-bg: #ffe600;
+  --skin-surface: #ffffff;
+  --skin-surface-raised: #ede6d3;
+  --skin-border: #0a0a0a;
+  --skin-border-strong: #0a0a0a;
+  --skin-text-primary: #0a0a0a;
+  --skin-text-secondary: #2b2b2b;
+  --skin-text-muted: #5c5a55;
+}
+:root[data-skin="neubrutalista"][data-theme="dark"],
+:root[data-skin="neubrutalista"][data-theme="light"] .skin-section--contrast,
+:root[data-skin="neubrutalista"]:not([data-theme]) .skin-section--contrast {
+  --skin-accent: #93a0ff;
+  --skin-accent-fill: #2f4bff;
+  --skin-on-accent: #ffffff;
+  --skin-secondary: #ffe600;
+  --skin-secondary-fill: #ffe600;
+  --skin-on-secondary: #0a0a0a;
+  --skin-alt-1: #ff5fa2;
+  --skin-alt-2: #00d26a;
+  --skin-alt-3: #ff6b1a;
+  --skin-bg: #0a0a0a;
+  --skin-surface: #1a1a1a;
+  --skin-surface-raised: #262626;
+  --skin-border: #ffffff;
+  --skin-border-strong: #ffffff;
+  --skin-text-primary: #ffffff;
+  --skin-text-secondary: #dcd6c8;
+  --skin-text-muted: #a39e94;
+}
+
+/* ── editorial ── */
+:root[data-skin="editorial"][data-theme="light"],
+:root[data-skin="editorial"]:not([data-theme]),
+:root[data-skin="editorial"][data-theme="dark"] .skin-section--contrast {
+  --skin-accent: #8c1c13;
+  --skin-accent-fill: #8c1c13;
+  --skin-on-accent: #fbf8f2;
+  --skin-secondary: #2f4a3a;
+  --skin-secondary-fill: #2f4a3a;
+  --skin-on-secondary: #fbf8f2;
+  --skin-alt-1: #b8862b;
+  --skin-alt-2: #1f2f4a;
+  --skin-alt-3: #c96f4a;
+  --skin-bg: #f6f2ea;
+  --skin-surface: #fbf8f2;
+  --skin-surface-raised: #ede7db;
+  --skin-border: #d9d1c1;
+  --skin-border-strong: #1c1a17;
+  --skin-text-primary: #1c1a17;
+  --skin-text-secondary: #4a453d;
+  --skin-text-muted: #6b6457;
+}
+:root[data-skin="editorial"][data-theme="dark"],
+:root[data-skin="editorial"][data-theme="light"] .skin-section--contrast,
+:root[data-skin="editorial"]:not([data-theme]) .skin-section--contrast {
+  --skin-accent: #e8877a;
+  --skin-accent-fill: #b3392c;
+  --skin-on-accent: #fbf8f2;
+  --skin-secondary: #8fb39e;
+  --skin-secondary-fill: #3f6650;
+  --skin-on-secondary: #ede7db;
+  --skin-alt-1: #e0b45c;
+  --skin-alt-2: #8fa6cc;
+  --skin-alt-3: #e09a78;
+  --skin-bg: #141210;
+  --skin-surface: #1c1a17;
+  --skin-surface-raised: #26231f;
+  --skin-border: #3a352e;
+  --skin-border-strong: #ede7db;
+  --skin-text-primary: #ede7db;
+  --skin-text-secondary: #c9c1b1;
+  --skin-text-muted: #9a917f;
+}
+
+/* ── neon ── */
+:root[data-skin="neon"][data-theme="neon"],
+:root[data-skin="neon"]:not([data-theme]),
+:root[data-skin="neon"][data-theme="fosforo"] .skin-section--contrast {
+  --skin-accent: #7df9ff;
+  --skin-accent-fill: #7df9ff;
+  --skin-on-accent: #05070b;
+  --skin-secondary: #ff3dcb;
+  --skin-secondary-fill: #ff3dcb;
+  --skin-on-secondary: #05070b;
+  --skin-alt-1: #8b7bff;
+  --skin-alt-2: #c6ff3d;
+  --skin-alt-3: #ffb020;
+  --skin-bg: #05070b;
+  --skin-surface: #0b0f17;
+  --skin-surface-raised: #121826;
+  --skin-border: #1e2a40;
+  --skin-border-strong: #7df9ff;
+  --skin-text-primary: #e6ecff;
+  --skin-text-secondary: #a9b4d0;
+  --skin-text-muted: #7c89a8;
+}
+:root[data-skin="neon"][data-theme="fosforo"],
+:root[data-skin="neon"][data-theme="neon"] .skin-section--contrast,
+:root[data-skin="neon"]:not([data-theme]) .skin-section--contrast {
+  --skin-accent: #39ff6a;
+  --skin-accent-fill: #39ff6a;
+  --skin-on-accent: #05070b;
+  --skin-secondary: #b6ff3d;
+  --skin-secondary-fill: #b6ff3d;
+  --skin-on-secondary: #05070b;
+  --skin-alt-1: #00e0a0;
+  --skin-alt-2: #e8ff8a;
+  --skin-alt-3: #ffd23d;
+  --skin-bg: #05070b;
+  --skin-surface: #05070b;
+  --skin-surface-raised: #0c1a10;
+  --skin-border: #143321;
+  --skin-border-strong: #39ff6a;
+  --skin-text-primary: #d7ffe0;
+  --skin-text-secondary: #8fd9a3;
+  --skin-text-muted: #5fa874;
+}
+
+/* ── y2k ── */
+:root[data-skin="y2k"][data-theme="light"],
+:root[data-skin="y2k"]:not([data-theme]),
+:root[data-skin="y2k"][data-theme="dark"] .skin-section--contrast {
+  --skin-accent: #1f4fff;
+  --skin-accent-fill: #1f4fff;
+  --skin-on-accent: #ffffff;
+  --skin-secondary: #c4127a;
+  --skin-secondary-fill: #ff4fb0;
+  --skin-on-secondary: #0e1630;
+  --skin-alt-1: #b6f23c;
+  --skin-alt-2: #b79cff;
+  --skin-alt-3: #7fe3ff;
+  --skin-bg: #eef2f7;
+  --skin-surface: #ffffff;
+  --skin-surface-raised: #dde4ee;
+  --skin-border: #b8c2d1;
+  --skin-border-strong: #58657c;
+  --skin-text-primary: #0e1630;
+  --skin-text-secondary: #37415c;
+  --skin-text-muted: #58657c;
+}
+:root[data-skin="y2k"][data-theme="dark"],
+:root[data-skin="y2k"][data-theme="light"] .skin-section--contrast,
+:root[data-skin="y2k"]:not([data-theme]) .skin-section--contrast {
+  --skin-accent: #8fa8ff;
+  --skin-accent-fill: #1f4fff;
+  --skin-on-accent: #ffffff;
+  --skin-secondary: #ff8fcb;
+  --skin-secondary-fill: #ff4fb0;
+  --skin-on-secondary: #0e1630;
+  --skin-alt-1: #b6f23c;
+  --skin-alt-2: #b79cff;
+  --skin-alt-3: #7fe3ff;
+  --skin-bg: #0b1126;
+  --skin-surface: #121a36;
+  --skin-surface-raised: #1a2448;
+  --skin-border: #2a3660;
+  --skin-border-strong: #b8c2d1;
+  --skin-text-primary: #eef2f7;
+  --skin-text-secondary: #b8c2d1;
+  --skin-text-muted: #8a96ae;
+}
+
+/* ── cassette ── */
+:root[data-skin="cassette"][data-theme="light"],
+:root[data-skin="cassette"]:not([data-theme]),
+:root[data-skin="cassette"][data-theme="dark"] .skin-section--contrast {
+  --skin-accent: #a83c0e;
+  --skin-accent-fill: #e2601f;
+  --skin-on-accent: #2a1d14;
+  --skin-secondary: #1a626b;
+  --skin-secondary-fill: #1f6f78;
+  --skin-on-secondary: #f6eedd;
+  --skin-alt-1: #e0a526;
+  --skin-alt-2: #7a4a2b;
+  --skin-alt-3: #c2331f;
+  --skin-bg: #ede3cf;
+  --skin-surface: #f6eedd;
+  --skin-surface-raised: #e0d3b8;
+  --skin-border: #bfaf8e;
+  --skin-border-strong: #3b2a1e;
+  --skin-text-primary: #2a1d14;
+  --skin-text-secondary: #5a4636;
+  --skin-text-muted: #675544;
+}
+:root[data-skin="cassette"][data-theme="dark"],
+:root[data-skin="cassette"][data-theme="light"] .skin-section--contrast,
+:root[data-skin="cassette"]:not([data-theme]) .skin-section--contrast {
+  --skin-accent: #ff8a3d;
+  --skin-accent-fill: #ff8a3d;
+  --skin-on-accent: #1e1611;
+  --skin-secondary: #5ec4c9;
+  --skin-secondary-fill: #5ec4c9;
+  --skin-on-secondary: #1e1611;
+  --skin-alt-1: #f2c14e;
+  --skin-alt-2: #c98a5e;
+  --skin-alt-3: #f0604a;
+  --skin-bg: #1e1611;
+  --skin-surface: #2a1d14;
+  --skin-surface-raised: #3b2a1e;
+  --skin-border: #5a4636;
+  --skin-border-strong: #ebddc2;
+  --skin-text-primary: #ede3cf;
+  --skin-text-secondary: #cdbc9f;
+  --skin-text-muted: #a9957a;
+}

@@ -34,8 +34,29 @@ Node 22 y pnpm (versión fijada en `packageManager`; activar con `corepack enabl
 - `pnpm typecheck`: genera los tipos de rutas de Next (`next typegen`) y corre `tsc --noEmit`.
 - `pnpm test`: tests unitarios con Vitest (`tests/unit/` y `src/**/*.test.ts`).
 - `pnpm test:e2e`: tests end-to-end con Playwright (`tests/e2e/`); la primera vez, `pnpm exec playwright install chromium`.
+- `pnpm test:skins`: CI de skins (axe, texto sobre los fondos y regresión visual en 390 y 1440 px), una vez por skin y tema.
 
-El CI (`.github/workflows/ci.yml`) corre install, lint, formato, typecheck, test y build en cada PR. Husky + lint-staged corren ESLint y Prettier sobre los archivos del commit.
+El CI (`.github/workflows/ci.yml`) tiene dos jobs en cada PR: **Lint, tipos, tests y build** (incluye el contraste de los pares de tokens de cada skin, `tests/unit/contrast.test.ts`) y **CI de skins** (e2e general + `tests/e2e/skins.spec.ts`). Husky + lint-staged corren ESLint y Prettier sobre los archivos del commit.
+
+### CI de skins
+
+- **Contraste de tokens** (`tests/unit/contrast.test.ts`): texto sobre `bg`, `surface` y `surface-raised` ≥ 4.5:1; `on-accent` y `on-secondary` sobre su relleno ≥ 4.5:1; `accent` y `border-strong` ≥ 3:1. Lee `palettes.css`; cuando existan los tokens semánticos, pasa a leerlos de ahí.
+- **axe** (WCAG 2.2 A y AA) en `/`, `/dev/ui` y `/dev/fondos`: las dos primeras en Core claro, Core oscuro y Neubrutalista; `/dev/fondos` en las 12 combinaciones.
+- **Texto sobre los fondos:** en `/dev/fondos`, cada título y párrafo se compara con el color promedio que queda detrás (patrón, canvas y velo). Falla bajo AA: es el control del tope de intensidad.
+- **Regresión visual:** capturas de página completa por skin y tema en 1440 y 390 px, con movimiento reducido (el hero queda fijo). Viven en `tests/e2e/__screenshots__/<proyecto>/`.
+- Para revisar una skin nueva: sumarla a `SKINS` en `src/components/site/backgrounds/skins.ts` y a `palettes.css`; los tests la recorren solos.
+
+### Actualizar las capturas de referencia
+
+Las capturas se generan siempre en el CI (Linux): las de Windows o macOS no coinciden píxel a píxel. Cuando un cambio visual es intencional:
+
+1. Lanzar el workflow **Actualizar capturas de skins**, de una de dos formas:
+   - En GitHub, **Actions → Actualizar capturas de skins → Run workflow**, eligiendo la rama del PR.
+   - Con un commit en la rama cuyo mensaje incluya `[actualizar capturas]` (sirve un commit vacío: `git commit --allow-empty -m "test: [actualizar capturas]"`).
+2. El workflow regenera las capturas en Linux y las commitea en esa rama.
+3. Volver a correr el CI del PR (el commit del workflow no lo dispara solo) y revisar las capturas en el diff del PR antes de aprobar.
+
+Si el CI de skins falla por capturas, el artefacto `playwright-skins` del job trae la esperada, la nueva y la diferencia.
 
 ## Estructura
 
