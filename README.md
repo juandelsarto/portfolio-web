@@ -2,15 +2,15 @@
 
 Portfolio de Juan Cruz Del Sarto, Design Engineer · UI y Design Systems.
 
-Un mismo contenido con varias skins (Core con tema claro y oscuro, Neubrutalista y más), construido sobre un sistema de tokens en tres niveles.
+Piezas propias, cortas y terminadas (apps chicas, componentes y experimentos), cada una con demo en vivo y una nota corta, más la trayectoria profesional. Una sola identidad visual con tema claro y oscuro.
 
 ## Stack
 
-Next.js (App Router) · TypeScript · pnpm · Tailwind v4 + shadcn/ui (Radix) · tokens como CSS custom properties · Motion · MDX · next-intl · Vitest · Playwright + axe · Vercel
+Next.js (App Router) · TypeScript · pnpm · Tailwind v4 + shadcn/ui (Radix) · tokens como CSS custom properties · MDX · next-intl · Vitest · Playwright + axe · Vercel
 
 ## Estado
 
-En construcción. El código llega a partir de la Etapa 1 del roadmap (tokens y skins).
+En construcción. El lanzamiento (Etapa 6 del roadmap) llega con 4 piezas, la Trayectoria y la versión en inglés.
 
 ## Licencia
 

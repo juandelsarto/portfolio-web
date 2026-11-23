@@ -6,21 +6,28 @@ Portfolio de Juan Cruz Del Sarto, Design Engineer · UI y Design Systems. Repo p
 
 - **Roadmap (Claude Doc):** https://claude.ai/artifact/ChiVWNeRbjRBAhy9EbgEFB. Si una tarjeta y el roadmap no coinciden, manda el roadmap.
 - **Copy aprobado (Claude Doc "Copy del portfolio v5"):** https://claude.ai/artifact/6zS1BGjAzp3SZfQF1ZtzUP
-- **Tareas:** Trello, tablero "Roadmap v1". Leer antes la tarjeta "[E0] Guía AI-first: contexto, enlaces y reglas".
+- **Tareas:** Trello, tablero "Roadmap v1". Leer antes la tarjeta "[E0] Guía AI-first: contexto, enlaces y reglas". Si el tablero y el roadmap no coinciden, manda el roadmap.
 - **Figma:** https://www.figma.com/design/97wrwaLaTwCkXsBu5HErRg/Portfolio-JCDS-%E2%80%94-Wireframes-v2 (fileKey `97wrwaLaTwCkXsBu5HErRg`). Usar el MCP de Figma con create_session y la skill figma-use antes de editar.
 
 ## Proyecto
 
-- **Secciones:** Home (resumida, 4 bloques), Sobre mí, Cómo trabajo, Trabajos, Contacto. Lab después del lanzamiento (E8).
-- **Trabajos:** Boarding RSVP (E3), Configurador de armarios white-label (E4), reworks de Sushi Pop, Drop Shop Tenis y Ribeiro (E5).
-- **Skins:** Core (claro y oscuro) y Neubrutalista para el lanzamiento; Editorial, Neón, Y2K y Scrapbook en E9. Solo Core tiene dos temas.
-- **Contrato de skin:** puede cambiar color, tipografía, radios, sombras, texturas, densidad y logo. Nunca cambia la estructura, el foco, el contraste mínimo AA ni el orden de lectura. Se seleccionan con `data-skin` y `data-theme` en `<html>`, sin parpadeo al cargar.
-- **Idiomas:** `/es` por defecto; `/en` deshabilitado hasta E6.
-- **Contenido:** casos en MDX con frontmatter validado con Zod (`slug`, `kind` project | rework, `title`, `type`, `role`, `year`, `summary`, `cover`, `tags`, `featured`, `status` published | draft, `label`, `links`, `order`). En producción solo se ven los `published`; nunca un estado vacío ni "Próximamente".
+Roadmap reescrito el 22 nov: piezas propias, cortas y terminadas; la experiencia en empresas va como hitos. Objetivo: abrir oportunidades laborales en Argentina y LatAm, con Contacto como CTA principal y el CV como apoyo.
+
+- **Home:** Hero · 01 Trabajo · 02 Trayectoria · 03 Sobre mí (con Cómo trabajo) · Contacto. Cada pieza tiene su página.
+- **Trabajo:** una sola sección que junta apps chicas, componentes y experimentos (reemplaza a Proyectos y Lab). Filtros: Todo · Apps · Componentes · Experimentos. Las apps van como filas destacadas y las piezas chicas en una grilla de cards compactas; la demo se activa en hover.
+- **Piezas del lanzamiento (Etapa 6):** Boarding RSVP (app, Etapa 3), Calendario familiar, Extractor de paleta y Cuotas o contado (Etapa 4). Después, de a una: Combinador tipográfico, Ribeiro 2019 → hoy (rework) y Editor de SVG.
+- **Trayectoria:** un puesto por fila con empresa, rol, años y logro; el detalle se despliega. Se cuenta qué se hizo y en qué tipo de producto, sin nombrar clientes ni usar código de las empresas.
+- **Página de pieza (plantilla única):** Ficha (tipo, rol, versión, stack, tiempo, links) · Demo embebida · Por qué lo hice · Decisiones (2 a 4) · Cómo funciona (opcional en piezas chicas) · Números (solo reales y medidos) · Qué aprendí y qué sigue. Cierre con anterior y siguiente, también con teclado. El rework de Ribeiro suma un antes y después dentro de Decisiones.
+- **Identidad visual:** una sola identidad (Core) con tema claro y oscuro, elegido con `data-theme` en `<html>`, sin parpadeo al cargar. Ya no hay skins: el código que todavía las menciona (`data-skin`, logo por skin, `docs/motion.md`) se simplifica en las tarjetas de Etapa 1 y 2.
+- **Idiomas:** `/es` por defecto; `/en` completo antes del lanzamiento (Etapa 5).
+- **Contenido:** cada pieza es un MDX con su ficha en el frontmatter validado con Zod y su demo. En producción solo se ven las piezas publicadas; nunca un estado vacío ni "Próximamente".
+- **Reglas de cada pieza:** entra en 1 a 3 fines de semana (si no, se recorta), se publica terminada y crece por versiones. Demos sin backend: datos ficticios en un adaptador local.
 
 ## Stack
 
-Next.js (App Router) · TypeScript estricto · pnpm · Tailwind v4 + shadcn/ui (Radix) · tokens como CSS custom properties (primitivos → semánticos → componente) · Motion · MDX · next-intl · Vitest · Playwright + axe · Vercel. Dominio: juancruzdelsarto.com (con `noindex` hasta E7).
+Next.js (App Router) · TypeScript estricto · pnpm · Tailwind v4 + shadcn/ui (Radix) · tokens como CSS custom properties (primitivos → semánticos), `@layer` y container queries · MDX · next-intl · Vitest · Playwright + axe · Vercel. Dominio: juancruzdelsarto.com (con `noindex` hasta el lanzamiento, Etapa 6).
+
+**Animación:** primero CSS (scroll-driven animations, view transitions, transiciones). Motion (motion.dev) solo como diferencial donde CSS no alcanza, con `LazyMotion` y solo en los componentes que lo necesitan. Siempre respetar `prefers-reduced-motion`.
 
 ## Comandos
 
@@ -43,8 +50,8 @@ El CI (`.github/workflows/ci.yml`) corre install, lint, formato, typecheck, test
 - `src/components/ui`: componentes de shadcn/ui.
 - `src/components/site`: componentes propios del sitio.
 - `src/styles/globals.css`: Tailwind v4 (CSS-first), `@theme inline` que conecta las variables con las utilidades y la variante `dark` ligada a `data-theme="dark"`.
-- `src/styles/tokens`: tokens de diseño. Hoy hay solo `placeholder.css` (temporal) hasta la tarjeta "[E1] Implementar los tokens en CSS".
-- `src/content`: casos en MDX.
+- `src/styles/tokens`: tokens de diseño. Hoy hay solo `placeholder.css` (temporal) hasta la tarjeta de tokens de la Etapa 1.
+- `src/content`: piezas en MDX.
 - `src/lib`: utilidades y configuración (`site.ts`: nombre, metadatos, `indexable`).
 - `tests/unit` y `tests/e2e`.
 - `/dev/ui`: página interna para revisar componentes; da 404 en producción.
@@ -59,17 +66,18 @@ Next.js 16 tiene cambios respecto de versiones anteriores: leer `AGENTS.md` y la
 
 ## Flujo de trabajo
 
-- `main` está protegida: todo entra por PR. Los checks de CI se vuelven obligatorios en E1.
-- Ramas: `e<etapa>/<slug-de-tarjeta>` (ej. `e1/tokens-css`).
+- `main` está protegida: todo entra por PR y el check de CI tiene que pasar.
+- Ramas: `e<etapa>/<slug-de-tarjeta>`, con el número de etapa del roadmap (ej. `e1/tokens`, `e4/extractor-paleta`).
 - Commits convencionales: `feat:`, `fix:`, `chore:`, `docs:`, `test:`, `refactor:`.
-- Un PR por tarjeta, con el link de la tarjeta y la plantilla completa (capturas por skin y checklist de accesibilidad).
+- Un PR por tarjeta, con el link de la tarjeta y la plantilla completa (capturas en tema claro y oscuro y checklist de accesibilidad).
 - Al terminar una tarjeta: comentar en Trello qué se hizo, con links y decisiones.
 
 ## Reglas
 
-- Copy en español rioplatense profesional; en inglés solo los términos del glosario. Sin métricas inventadas: "impacto verificable" es solo lo medido o demostrable.
+- Copy en español rioplatense profesional; en inglés solo los términos del glosario. Sin métricas inventadas: los números son solo medidos y reales (performance, tests, uso propio); si una pieza no tiene, la sección no aparece.
 - Datos de todos los proyectos ficticios. Nunca usar código, marcas ni datos de Around, Mercado Libre u otras empresas.
-- Reworks: rediseño no solicitado, diseño y código propios, sin contacto con los dueños y con aviso visible en el caso. No reproducir el contenido de casino inyectado en Drop Shop Tenis.
+- Ribeiro: concepto no oficial, sin relación con la empresa, sin formularios que capturen datos y sin cobro real, con el aviso visible en la pieza.
+- Nunca publicar código, pantallas ni clientes de Around, Mercado Libre u otra empresa. Figma se comparte en solo lectura.
 - Sin teléfono, dirección ni indicador de disponibilidad en el sitio.
-- Accesibilidad WCAG 2.2 AA como piso en todas las skins y temas.
+- Accesibilidad WCAG 2.2 AA como piso, en los dos temas.
 - Ante una decisión que el roadmap no define: proponer 2 o 3 opciones en la tarjeta y esperar la respuesta de Juan.
