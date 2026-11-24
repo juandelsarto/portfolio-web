@@ -47,7 +47,9 @@ El CI (`.github/workflows/ci.yml`) corre install, lint, formato, typecheck, test
 
 ## Estructura
 
-- `src/app`: rutas (App Router).
+- `src/app`: rutas (App Router). Las páginas viven en `src/app/[locale]/` (`/es`, `/en`); `src/proxy.ts` (next-intl) redirige `/` a `/es` y, hasta la Etapa 5, `/en` a `/es`.
+- `messages/es.json` y `messages/en.json`: todo el texto del sitio (next-intl). Nunca texto fijo en los componentes: `useTranslations` / `getTranslations`. Las dos tienen las mismas claves (lo verifica un test); `en.json` va vacío hasta la Etapa 5.
+- `src/i18n`: `routing.ts` (idiomas, `ENGLISH_ENABLED`), `navigation.ts` (`Link` y `redirect` que conservan el idioma; usarlos en lugar de `next/link`) y `request.ts`.
 - `src/components/ui`: componentes de shadcn/ui.
 - `src/components/site`: componentes propios del sitio.
 - `src/styles/globals.css`: Tailwind v4 (CSS-first), `@theme inline` que conecta las variables con las utilidades y la variante `dark` ligada a `data-theme="dark"`.
