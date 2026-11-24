@@ -45,6 +45,8 @@ Node 22 y pnpm (versión fijada en `packageManager`; activar con `corepack enabl
 
 El CI (`.github/workflows/ci.yml`) corre install, lint, formato, typecheck, test y build en cada PR. Husky + lint-staged corren ESLint y Prettier sobre los archivos del commit.
 
+**Deploy (Vercel):** cada PR tiene su preview (el bot de Vercel comenta el link en el PR; ahí se ven los borradores de Trabajo) y `main` se publica sola en producción. Nada se indexa: meta `robots`, `robots.txt` y el header `X-Robots-Tag` salen de `siteConfig.indexable`, que solo pasa a `true` con `NEXT_PUBLIC_INDEXABLE=true` en producción (Etapa 6). Las URLs absolutas de los metadatos usan la del deploy (`getBaseUrl()` en `src/lib/site.ts`).
+
 ## Estructura
 
 - `src/app`: rutas (App Router). Las páginas viven en `src/app/[locale]/` (`/es`, `/en`); `src/proxy.ts` (next-intl) redirige `/` a `/es` y, hasta la Etapa 5, `/en` a `/es`.
@@ -55,7 +57,8 @@ El CI (`.github/workflows/ci.yml`) corre install, lint, formato, typecheck, test
 - `src/styles/globals.css`: Tailwind v4 (CSS-first), `@theme inline` que conecta las variables con las utilidades y la variante `dark` ligada a `data-theme="dark"`.
 - `src/styles/tokens`: tokens de color. `tokens.json` (exportado de Figma: primitivos y semánticos en claro y oscuro) es la fuente; `pnpm tokens:build` genera `tokens.css`. En `globals.css`, `@theme inline` los conecta con las utilidades (nombres de shadcn más roles propios: `bg-inverse`, `bg-selected`, `text-brand`, `border-line-strong`…).
 - `src/content/work/<slug>/es.mdx`: una pieza de Trabajo por carpeta (`en.mdx` desde la Etapa 5). El frontmatter es la ficha, validada con Zod en `src/lib/work-schema.ts` (un archivo inválido rompe el build); el cuerpo MDX es "Cómo funciona". `status: borrador` solo se ve en desarrollo y en los previews de Vercel; `status: publicada` exige demo (`demoUrl`, se embebe en un iframe), captura (`cover`, en `public/work/`), por qué, 2 a 4 decisiones, stack, qué sigue y el repo (o `repoPrivate: true`). Publicar una pieza es agregar su carpeta con el MDX y la captura. Página: `/[locale]/work/<slug>`.
-- `src/lib`: utilidades y configuración (`site.ts`: nombre, metadatos, `indexable`).
+- `src/lib`: utilidades y configuración (`site.ts`: nombre, links, `indexable`, `getBaseUrl()`).
+- Metadatos: en `src/app/[locale]/layout.tsx` (título, descripción, canónica, Open Graph, Twitter e íconos). Imagen OG y de Twitter: `opengraph-image.png` y `twitter-image.png` en `src/app/[locale]/` (frame "og-image-1200x630" de Figma). Favicons en `public/icons/` (16 px monograma y 32 px logo, claro y oscuro; Apple 180 px) y `src/app/favicon.ico`.
 - `tests/unit` y `tests/e2e`.
 - `/dev/ui`: página interna para revisar componentes; da 404 en producción.
 
