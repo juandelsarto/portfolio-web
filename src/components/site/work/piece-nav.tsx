@@ -22,7 +22,15 @@ function isTypingTarget(el: EventTarget | null) {
 }
 
 /** Pieza anterior y siguiente, en el orden de la Home; también con ← y →. */
-export function PieceNav({ prev, next }: { prev?: Neighbor; next?: Neighbor }) {
+export function PieceNav({
+  current,
+  prev,
+  next,
+}: {
+  current: string;
+  prev?: Neighbor;
+  next?: Neighbor;
+}) {
   const t = useTranslations("Piece");
   const router = useRouter();
 
@@ -41,7 +49,7 @@ export function PieceNav({ prev, next }: { prev?: Neighbor; next?: Neighbor }) {
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [prev, next, router]);
+  }, [current, prev, next, router]);
 
   return (
     <nav

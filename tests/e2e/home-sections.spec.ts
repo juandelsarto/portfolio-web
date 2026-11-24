@@ -60,3 +60,31 @@ for (const theme of ["light", "dark"] as const) {
     expect(violations.map((v) => `${v.id}: ${v.nodes.length}`)).toEqual([]);
   });
 }
+
+test("Trayectoria despliega el detalle de cada puesto, también con teclado", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const section = page.locator("#trayectoria");
+  const buttons = section.getByRole("button");
+  await expect(buttons).toHaveCount(5);
+  await expect(buttons.first()).toHaveAttribute("aria-expanded", "true");
+  await expect(
+    section.getByText(/portal de documentación interactivo/),
+  ).toBeVisible();
+
+  const around = section.getByRole("button", { name: /Around Media Services/ });
+  await expect(around).toHaveAttribute("aria-expanded", "false");
+  await expect(section.getByText(/catálogo de media/)).toBeHidden();
+  await around.focus();
+  await page.keyboard.press("Enter");
+  await expect(around).toHaveAttribute("aria-expanded", "true");
+  await expect(section.getByText(/catálogo de media/)).toBeVisible();
+  await page.keyboard.press("Space");
+  await expect(section.getByText(/catálogo de media/)).toBeHidden();
+
+  await expect(section.getByRole("link", { name: /LinkedIn/ })).toHaveAttribute(
+    "href",
+    "https://linkedin.com/in/juancruzdelsarto",
+  );
+});
