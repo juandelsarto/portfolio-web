@@ -1,0 +1,90 @@
+/* Archivo generado por scripts/build-tokens.mjs a partir de tokens.json. No editar a mano. */
+
+@layer tokens {
+  /* Primitivos: valores crudos. Los componentes nunca los usan directo. */
+  :root {
+    --secondary-300: #f8f8fa;
+    --secondary-700: #041020;
+    --secondary-700-a70: #041020b3;
+    --neutral-0: #ffffff;
+    --neutral-50: #eeeef2;
+    --neutral-100: #dcdde3;
+    --neutral-300: #c9ccd4;
+    --neutral-400: #9a9ea8;
+    --neutral-500: #566070;
+    --neutral-600: #2c3646;
+    --neutral-800: #22344d;
+    --neutral-900: #13243b;
+    --neutral-950: #0b1a2e;
+    --accent-300: #e7552e;
+    --accent-400: #c03b16;
+    --accent-600: #a53313;
+    --red-400: #f97066;
+    --red-600: #b42318;
+  }
+
+  /* Semánticos, tema claro (por defecto). */
+  :root,
+  [data-theme="light"] {
+    color-scheme: light;
+    --color-bg-page: var(--secondary-300);
+    --color-bg-subtle: var(--neutral-50);
+    --color-bg-placeholder: var(--neutral-100);
+    --color-bg-overlay: var(--secondary-700-a70);
+    --color-bg-inverse: var(--secondary-700);
+    --color-bg-accent: var(--accent-400);
+    --color-bg-selected: var(--secondary-700);
+    --color-bg-danger: var(--red-600);
+    --color-icon-primary: var(--secondary-700);
+    --color-text-primary: var(--secondary-700);
+    --color-text-secondary: var(--neutral-600);
+    --color-text-muted: var(--neutral-500);
+    --color-text-accent: var(--accent-400);
+    --color-text-danger: var(--red-600);
+    --color-text-on-accent: var(--neutral-0);
+    --color-text-on-danger: var(--neutral-0);
+    --color-text-on-inverse: var(--secondary-300);
+    --color-text-on-inverse-muted: var(--neutral-400);
+    --color-text-on-selected: var(--secondary-300);
+    --color-border-subtle: var(--neutral-100);
+    --color-border-default: var(--neutral-100);
+    --color-border-strong: var(--neutral-500);
+    --color-border-contrast: var(--secondary-700);
+    --color-border-accent: var(--accent-400);
+    --color-border-on-inverse: var(--neutral-800);
+    --color-fill-on-inverse: var(--neutral-900);
+    --color-focus: var(--accent-400);
+  }
+
+  /* Semánticos, tema oscuro. */
+  [data-theme="dark"] {
+    color-scheme: dark;
+    --color-bg-page: var(--secondary-700);
+    --color-bg-subtle: var(--neutral-900);
+    --color-bg-placeholder: var(--neutral-800);
+    --color-bg-overlay: var(--secondary-700-a70);
+    --color-bg-inverse: var(--secondary-300);
+    --color-bg-accent: var(--accent-300);
+    --color-bg-selected: var(--secondary-300);
+    --color-bg-danger: var(--red-400);
+    --color-icon-primary: var(--secondary-300);
+    --color-text-primary: var(--secondary-300);
+    --color-text-secondary: var(--neutral-300);
+    --color-text-muted: var(--neutral-400);
+    --color-text-accent: var(--accent-300);
+    --color-text-danger: var(--red-400);
+    --color-text-on-accent: var(--secondary-700);
+    --color-text-on-danger: var(--neutral-950);
+    --color-text-on-inverse: var(--secondary-700);
+    --color-text-on-inverse-muted: var(--neutral-500);
+    --color-text-on-selected: var(--secondary-700);
+    --color-border-subtle: var(--neutral-800);
+    --color-border-default: var(--neutral-800);
+    --color-border-strong: var(--neutral-400);
+    --color-border-contrast: var(--secondary-300);
+    --color-border-accent: var(--accent-300);
+    --color-border-on-inverse: var(--neutral-100);
+    --color-fill-on-inverse: var(--neutral-50);
+    --color-focus: var(--accent-300);
+  }
+}

@@ -18,9 +18,13 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky",
-    "logo:build": "node scripts/build-logo.mjs"
+    "logo:build": "node scripts/build-logo.mjs",
+    "tokens:build": "node scripts/build-tokens.mjs"
   },
   "dependencies": {
+    "@fontsource-variable/afacad-flux": "5.3.0",
+    "@fontsource-variable/jetbrains-mono": "5.3.0",
+    "@fontsource-variable/nunito-sans": "5.3.0",
     "@radix-ui/react-slot": "1.5.0",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
