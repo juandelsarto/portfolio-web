@@ -117,5 +117,8 @@ export function parsePiece(slug: string, source: string, file = slug): Piece {
       .join("\n");
     throw new Error(`Ficha inválida en ${file}:\n${issues}`);
   }
-  return { ...result.data, slug, body: content.trim() };
+  // Los comentarios MDX ({/* … */}) son placeholders para completar: no cuentan
+  // como contenido, así "Cómo funciona" no aparece vacía.
+  const body = content.replace(/\{\/\*[\s\S]*?\*\/\}/g, "").trim();
+  return { ...result.data, slug, body };
 }

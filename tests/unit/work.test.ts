@@ -39,6 +39,18 @@ describe("piezas de Trabajo", () => {
     );
   });
 
+  it("los placeholders (comentarios MDX y YAML) no cuentan como contenido", () => {
+    const draft = published
+      .replace('"publicada"', '"borrador"')
+      .replace(/---\n$/, '# why: "Por completar"\n---\n');
+    const piece = parsePiece(
+      "pieza",
+      `${draft}\n{/* Cómo funciona: por completar */}\n`,
+    );
+    expect(piece.why).toBeUndefined();
+    expect(piece.body).toBe("");
+  });
+
   it("un tipo desconocido rompe el build con el archivo en el mensaje", () => {
     expect(() =>
       parsePiece(
