@@ -163,5 +163,47 @@
     "prev": "",
     "next": "",
     "keyboardHint": ""
+  },
+  "Trajectory": {
+    "intro": "",
+    "linkedin": "",
+    "newTabSr": "",
+    "jobs": [
+      {
+        "years": "",
+        "company": "",
+        "role": "",
+        "summary": "",
+        "detail": ""
+      },
+      {
+        "years": "",
+        "company": "",
+        "role": "",
+        "summary": "",
+        "detail": ""
+      },
+      {
+        "years": "",
+        "company": "",
+        "role": "",
+        "summary": "",
+        "detail": ""
+      },
+      {
+        "years": "",
+        "company": "",
+        "role": "",
+        "summary": "",
+        "detail": ""
+      },
+      {
+        "years": "",
+        "company": "",
+        "role": "",
+        "summary": "",
+        "detail": ""
+      }
+    ]
   }
 }

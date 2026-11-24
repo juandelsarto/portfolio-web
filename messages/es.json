@@ -179,5 +179,47 @@
     "prev": "Pieza anterior",
     "next": "Pieza siguiente",
     "keyboardHint": "← → también con teclado"
+  },
+  "Trajectory": {
+    "intro": "Del audiovisual al frontend, siempre entre el diseño y el código.",
+    "linkedin": "LinkedIn ↗",
+    "newTabSr": " (se abre en otra pestaña)",
+    "jobs": [
+      {
+        "years": "2025 – Presente",
+        "company": "Mercado Libre",
+        "role": "Ssr. Software Engineer",
+        "summary": "Desarrollo frontend del equipo ReAuth: librería, documentación para integradores y flujos de desarrollo asistidos por AI",
+        "detail": "Desarrollo y mantenimiento de la librería frontend del equipo ReAuth y de las herramientas que facilitan su adopción por otros equipos. Diseño y construcción de un portal de documentación interactivo para integradores internos, identidad visual del equipo y un plugin para integradores. Incorporación de AI al flujo de desarrollo bajo Spec-Driven Development, con plugins, skills y pruebas de concepto con MCP servers para otros developers."
+      },
+      {
+        "years": "2019 – 2025",
+        "company": "Around Media Services",
+        "role": "Sr. Front End Developer",
+        "summary": "Desarrollo web y mobile para una startup de software de broadcast, de UI Developer a Frontend Developer, con la librería de componentes como eje",
+        "detail": "Incorporación como UI Developer y evolución a Frontend Developer en una startup de software para broadcast que pasó de prestar servicios a desarrollar productos propios. Apps web y mobile con React, React Native y Next.js para catálogo de media y gestión de assets, diseñadas junto al equipo de UX. Base técnica: Around Styleguide, de manual de estilos a librería de componentes usada en hasta 5 apps; monorepo migrado a pnpm, Vite y TypeScript, CI/CD y testing end-to-end con Cypress."
+      },
+      {
+        "years": "2016 – 2019",
+        "company": "Minicuotas Ribeiro",
+        "role": "Ssr. Web Designer",
+        "summary": "Diseño de UI e interfaces responsive para el e-commerce de la marca",
+        "detail": "Diseño de UI y flujos de interacción para el e-commerce, y desarrollo de interfaces responsive con HTML, CSS y JavaScript. Participación en el paso del equipo desde Marketing hacia un sector enfocado en UX/UI, y piezas para campañas digitales y TV."
+      },
+      {
+        "years": "2014 – 2016",
+        "company": "Freelance",
+        "role": "Web Designer",
+        "summary": "Diseño y desarrollo de sitios, branding y piezas audiovisuales para clientes",
+        "detail": "Proyectos de punta a punta: diseño y desarrollo de sitios responsive, branding, diseño gráfico y piezas audiovisuales."
+      },
+      {
+        "years": "2010 – 2016",
+        "company": "LOE Producciones",
+        "role": "Realizador audiovisual",
+        "summary": "Producción, filmación y edición audiovisual para eventos sociales",
+        "detail": "Producción, filmación y edición de piezas audiovisuales para eventos sociales, incluido Same Day Edit."
+      }
+    ]
   }
 }

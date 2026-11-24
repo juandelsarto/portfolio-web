@@ -294,6 +294,7 @@ export default async function PiecePage({
       ))}
 
       <PieceNav
+        current={piece.slug}
         prev={
           pieces[index - 1] && {
             slug: pieces[index - 1]!.slug,
