@@ -1,4 +1,5 @@
 import { HomeSection } from "@/components/site/home-section";
+import { InfoIcon } from "@/components/site/icons";
 import { about } from "@/content/home";
 
 const subLabel =
@@ -41,9 +42,22 @@ export function AboutSection() {
               </li>
             ))}
           </ol>
-          <p className="pt-2 font-display text-xl font-semibold">
-            {about.closing}
-          </p>
+          {/* Disclaimer sobre el uso de AI: recuadro tipo nota, no un renglón más. */}
+          <aside
+            role="note"
+            aria-label={about.noteLabel}
+            className="mt-4 flex items-start gap-3 rounded-sm border border-l-4 border-border border-l-brand bg-muted px-5 py-4"
+          >
+            <InfoIcon className="mt-0.5 size-5 shrink-0 text-brand" />
+            <div className="flex flex-col gap-1">
+              <p className="font-mono text-xs font-medium tracking-wide uppercase">
+                {about.noteLabel}
+              </p>
+              <p className="font-display text-xl font-semibold">
+                {about.closing}
+              </p>
+            </div>
+          </aside>
 
           <h3 className={`${subLabel} pt-10`}>{about.toolsTitle}</h3>
           <dl className="border-t border-border">

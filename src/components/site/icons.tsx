@@ -28,3 +28,12 @@ export function CheckIcon({ className }: IconProps) {
     </svg>
   );
 }
+
+export function InfoIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 16 16" strokeWidth="1.25" className={className} {...base}>
+      <circle cx="8" cy="8" r="6.5" />
+      <path d="M8 7.25V11.5M8 4.75v.01" />
+    </svg>
+  );
+}
