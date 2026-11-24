@@ -19,7 +19,8 @@
     "format:check": "prettier --check .",
     "prepare": "husky",
     "logo:build": "node scripts/build-logo.mjs",
-    "tokens:build": "node scripts/build-tokens.mjs"
+    "tokens:build": "node scripts/build-tokens.mjs",
+    "perf": "lhci autorun"
   },
   "dependencies": {
     "@fontsource-variable/afacad-flux": "5.3.0",
@@ -41,6 +42,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
+    "@lhci/cli": "^0.16.1",
     "@playwright/test": "1.65.0",
     "@tailwindcss/turbopack": "4.3.5",
     "@types/node": "22.20.5",

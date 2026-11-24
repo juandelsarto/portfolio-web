@@ -41,6 +41,7 @@ Node 22 y pnpm (versión fijada en `packageManager`; activar con `corepack enabl
 - `pnpm typecheck`: genera los tipos de rutas de Next (`next typegen`) y corre `tsc --noEmit`.
 - `pnpm test`: tests unitarios con Vitest (`tests/unit/` y `src/**/*.test.ts`).
 - `pnpm tokens:build` / `pnpm logo:build`: regeneran `tokens.css` y `logo-markup.ts` desde sus fuentes.
+- `pnpm perf`: Lighthouse CI contra el build de producción con el presupuesto de `lighthouserc.json` (hay que correr `pnpm build` antes). Detalle en `docs/performance.md`.
 - `pnpm test:e2e`: tests end-to-end con Playwright (`tests/e2e/`) contra el build de producción; `work.spec.ts` corre contra `pnpm dev` (puerto 3200) para ver los borradores. La primera vez, `pnpm exec playwright install chromium`.
 
 El CI (`.github/workflows/ci.yml`) corre install, lint, formato, typecheck, test y build en cada PR, y un segundo job con los tests end-to-end (axe en los dos temas, teclado, reflow desde 320 px) en Chromium, Firefox y WebKit. Husky + lint-staged corren ESLint y Prettier sobre los archivos del commit.
