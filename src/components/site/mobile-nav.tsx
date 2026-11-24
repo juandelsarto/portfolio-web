@@ -1,8 +1,9 @@
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 
-import { showWork, siteConfig } from "@/lib/site";
+import { siteConfig } from "@/lib/site";
+import { hasVisibleWork } from "@/lib/work";
 
 const item =
   "inline-flex items-center rounded-full px-5 py-3 text-sm font-medium focus-visible:outline-offset-0";
@@ -10,6 +11,7 @@ const item =
 /** Barra flotante de mobile (Nav/Mobile en Figma): Trabajo, CV y Contacto. */
 export function MobileNav() {
   const t = useTranslations();
+  const showWork = hasVisibleWork(useLocale());
   return (
     <nav
       aria-label={t("MobileNav.label")}

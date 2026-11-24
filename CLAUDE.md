@@ -41,7 +41,7 @@ Node 22 y pnpm (versión fijada en `packageManager`; activar con `corepack enabl
 - `pnpm typecheck`: genera los tipos de rutas de Next (`next typegen`) y corre `tsc --noEmit`.
 - `pnpm test`: tests unitarios con Vitest (`tests/unit/` y `src/**/*.test.ts`).
 - `pnpm tokens:build` / `pnpm logo:build`: regeneran `tokens.css` y `logo-markup.ts` desde sus fuentes.
-- `pnpm test:e2e`: tests end-to-end con Playwright (`tests/e2e/`); la primera vez, `pnpm exec playwright install chromium`.
+- `pnpm test:e2e`: tests end-to-end con Playwright (`tests/e2e/`) contra el build de producción; `work.spec.ts` corre contra `pnpm dev` (puerto 3200) para ver los borradores. La primera vez, `pnpm exec playwright install chromium`.
 
 El CI (`.github/workflows/ci.yml`) corre install, lint, formato, typecheck, test y build en cada PR. Husky + lint-staged corren ESLint y Prettier sobre los archivos del commit.
 
@@ -54,7 +54,7 @@ El CI (`.github/workflows/ci.yml`) corre install, lint, formato, typecheck, test
 - `src/components/site`: componentes propios del sitio.
 - `src/styles/globals.css`: Tailwind v4 (CSS-first), `@theme inline` que conecta las variables con las utilidades y la variante `dark` ligada a `data-theme="dark"`.
 - `src/styles/tokens`: tokens de color. `tokens.json` (exportado de Figma: primitivos y semánticos en claro y oscuro) es la fuente; `pnpm tokens:build` genera `tokens.css`. En `globals.css`, `@theme inline` los conecta con las utilidades (nombres de shadcn más roles propios: `bg-inverse`, `bg-selected`, `text-brand`, `border-line-strong`…).
-- `src/content`: piezas en MDX.
+- `src/content/work/<slug>/es.mdx`: una pieza de Trabajo por carpeta (`en.mdx` desde la Etapa 5). El frontmatter es la ficha, validada con Zod en `src/lib/work-schema.ts` (un archivo inválido rompe el build); el cuerpo MDX es "Cómo funciona". `status: borrador` solo se ve en desarrollo y en los previews de Vercel; `status: publicada` exige demo (`demoUrl`, se embebe en un iframe), captura (`cover`, en `public/work/`), por qué, 2 a 4 decisiones, stack, qué sigue y el repo (o `repoPrivate: true`). Publicar una pieza es agregar su carpeta con el MDX y la captura. Página: `/[locale]/work/<slug>`.
 - `src/lib`: utilidades y configuración (`site.ts`: nombre, metadatos, `indexable`).
 - `tests/unit` y `tests/e2e`.
 - `/dev/ui`: página interna para revisar componentes; da 404 en producción.

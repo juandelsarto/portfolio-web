@@ -55,7 +55,8 @@
   --color-selected-foreground: var(--color-text-on-selected);
   --color-danger: var(--color-text-danger);
 
-  /* Radios (Core: 4 · 8 · 16) */
+  /* Radios (Core: 2 · 4 · 8 · 16; el de 2 px es el de los tags) */
+  --radius-xs: 0.125rem;
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 1rem;

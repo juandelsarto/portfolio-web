@@ -114,5 +114,54 @@
     "label": "",
     "title": "",
     "back": ""
+  },
+  "Work": {
+    "intro": "",
+    "filtersLabel": "",
+    "filters": {
+      "all": "",
+      "app": "",
+      "componente": "",
+      "experimento": ""
+    },
+    "count": "",
+    "types": {
+      "app": "",
+      "componente": "",
+      "experimento": ""
+    },
+    "simulated": "",
+    "draft": "",
+    "view": "",
+    "preview": ""
+  },
+  "Piece": {
+    "metaTitle": "",
+    "back": "",
+    "position": "",
+    "positionSr": "",
+    "ficha": "",
+    "type": "",
+    "role": "",
+    "version": "",
+    "stack": "",
+    "links": "",
+    "openDemo": "",
+    "code": "",
+    "repoPrivate": "",
+    "newTabSr": "",
+    "demoTitle": "",
+    "demoPending": "",
+    "sections": {
+      "why": "",
+      "decisions": "",
+      "how": "",
+      "numbers": "",
+      "learned": ""
+    },
+    "navLabel": "",
+    "prev": "",
+    "next": "",
+    "keyboardHint": ""
   }
 }
