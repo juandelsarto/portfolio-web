@@ -52,7 +52,6 @@ export const about = {
     },
   ],
   practiceLabel: "En la práctica:",
-  noteLabel: "Sobre el uso de AI",
   closing: "La AI acelera. El criterio no se delega.",
   toolsTitle: "Herramientas",
   tools: [

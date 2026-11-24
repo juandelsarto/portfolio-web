@@ -44,7 +44,6 @@ export function AboutSection() {
           {/* Disclaimer sobre el uso de AI: recuadro tipo nota, no un renglón más. */}
           <aside
             role="note"
-            aria-label={about.noteLabel}
             className="mt-4 flex items-start rounded-sm border border-l-4 border-border border-l-brand bg-muted p-6"
           >
             <div className="flex flex-col gap-1">
