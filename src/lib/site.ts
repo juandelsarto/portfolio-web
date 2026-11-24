@@ -8,9 +8,9 @@ export const siteConfig = {
     repo: "https://github.com/juandelsarto/portfolio-web",
   },
   // El texto del sitio (rol, metadatos, ubicación…) está en messages/<idioma>.json.
-  // El PDF se suma en la Etapa 6; hasta entonces el link existe pero no el archivo.
+  // El PDF se suma en la Etapa 7; hasta entonces el link existe pero no el archivo.
   cvUrl: "/cv/juan-cruz-del-sarto-cv.pdf",
-  // Hasta el lanzamiento (Etapa 6) el sitio no se indexa. Se habilita con la
+  // Hasta el lanzamiento (Etapa 7) el sitio no se indexa. Se habilita con la
   // variable de entorno NEXT_PUBLIC_INDEXABLE=true, y solo en producción: los
   // previews de Vercel nunca se indexan.
   indexable:
@@ -28,7 +28,7 @@ export const homeSections = [
 /**
  * URL base para metadatos y URLs absolutas (Open Graph). En Vercel usa la URL
  * del deploy: la del preview, o la de producción (el dominio propio cuando se
- * configure en la Etapa 6; hasta entonces, la de vercel.app). Fuera de Vercel,
+ * configure en la Etapa 7; hasta entonces, la de vercel.app). Fuera de Vercel,
  * el dominio del sitio.
  */
 export function getBaseUrl(): URL {

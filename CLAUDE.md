@@ -15,7 +15,7 @@ Roadmap reescrito el 22 nov: piezas propias, cortas y terminadas; la experiencia
 
 - **Home:** Hero · 01 Trabajo · 02 Trayectoria · 03 Sobre mí (con Cómo trabajo) · Contacto. Cada pieza tiene su página.
 - **Trabajo:** una sola sección que junta apps chicas, componentes y experimentos (reemplaza a Proyectos y Lab). Filtros: Todo · Apps · Componentes · Experimentos. Las apps van como filas destacadas y las piezas chicas en una grilla de cards compactas; la demo se activa en hover.
-- **Piezas del lanzamiento (Etapa 6):** Boarding RSVP (app, Etapa 3), Calendario familiar, Extractor de paleta y Cuotas o contado (Etapa 4). Después, de a una: Combinador tipográfico, Asesor de raquetas y Editor de SVG.
+- **Piezas del lanzamiento (Etapa 7):** Boarding RSVP (app, Etapa 3), Calendario familiar, Extractor de paleta y Cuotas o contado (Etapa 4). Después, de a una: Combinador tipográfico, Asesor de raquetas y Editor de SVG.
 - **Trayectoria:** un puesto por fila con empresa, rol, años y un resumen breve de la labor; el detalle se despliega. Se cuenta qué se hizo y en qué tipo de producto, sin nombrar clientes ni usar código de las empresas.
 - **Página de pieza (plantilla única):** Ficha (tipo, rol, versión, stack, links) · Demo embebida · Por qué lo hice · Decisiones (2 a 4) · Cómo funciona (opcional en piezas chicas) · Números (solo reales y medidos) · Qué aprendí y qué sigue. Cierre con anterior y siguiente, también con teclado. El Asesor de raquetas suma en Cómo funciona el diagrama del agente y el video del modo con LLM local.
 - **Identidad visual:** una sola identidad (Core) con tema claro y oscuro, elegido con `data-theme` en `<html>`, sin parpadeo al cargar. Paleta Core: fondo `#f8f8fa` / navy `#041020`, texto navy / `#f8f8fa`, acento naranja `#c03b16` / `#e7552e`. Tipografía: títulos en Afacad Flux (Bold desde 36 px, SemiBold debajo), cuerpo en Nunito Sans y mono en JetBrains Mono. Tokens en Figma: colecciones `Primitivos` y `Semánticos` (modos Claro y Oscuro), con la sintaxis CSS en cada variable (`var(--color-bg-page)`, etc.). Logo: la cara en color acento, siempre visible en el header; el monograma JC (Afacad Flux, sin fondo, color acento) solo se usa en el favicon de 16 px. Ya no hay skins.
@@ -25,9 +25,9 @@ Roadmap reescrito el 22 nov: piezas propias, cortas y terminadas; la experiencia
 
 ## Stack
 
-Next.js (App Router) · TypeScript estricto · pnpm · Tailwind v4 + shadcn/ui (Radix) · tokens como CSS custom properties (primitivos → semánticos), `@layer` y container queries · MDX · next-intl · Vitest · Playwright + axe · Vercel. Dominio: juancruzdelsarto.com (con `noindex` hasta el lanzamiento, Etapa 6).
+Next.js (App Router) · TypeScript estricto · pnpm · Tailwind v4 + shadcn/ui (Radix) · tokens como CSS custom properties (primitivos → semánticos), `@layer` y container queries · MDX · next-intl · Vitest · Playwright + axe · Vercel. Dominio: juancruzdelsarto.com (con `noindex` hasta el lanzamiento, Etapa 7).
 
-**Animación:** primero CSS (scroll-driven animations, view transitions, transiciones). Motion (motion.dev) solo como diferencial donde CSS no alcanza, con `LazyMotion` y solo en los componentes que lo necesitan. Siempre respetar `prefers-reduced-motion`.
+**Animación:** primero CSS (scroll-driven animations, view transitions, transiciones). Motion (motion.dev) solo como diferencial donde CSS no alcanza, con `LazyMotion` y solo en los componentes que lo necesitan. Siempre respetar `prefers-reduced-motion`. Las animaciones de las secciones, el fondo interactivo del hero, los fondos y las transiciones entre páginas son la Etapa 6 (animación y pulido de UI), después de las piezas y la versión en inglés y antes del lanzamiento.
 
 ## Comandos
 
@@ -46,7 +46,7 @@ Node 22 y pnpm (versión fijada en `packageManager`; activar con `corepack enabl
 
 El CI (`.github/workflows/ci.yml`) corre install, lint, formato, typecheck, test y build en cada PR, y un segundo job con los tests end-to-end (axe en los dos temas, teclado, reflow desde 320 px) en Chromium, Firefox y WebKit. Husky + lint-staged corren ESLint y Prettier sobre los archivos del commit.
 
-**Deploy (Vercel):** cada PR tiene su preview (el bot de Vercel comenta el link en el PR; ahí se ven los borradores de Trabajo) y `main` se publica sola en producción. Nada se indexa: meta `robots`, `robots.txt` y el header `X-Robots-Tag` salen de `siteConfig.indexable`, que solo pasa a `true` con `NEXT_PUBLIC_INDEXABLE=true` en producción (Etapa 6). Las URLs absolutas de los metadatos usan la del deploy (`getBaseUrl()` en `src/lib/site.ts`).
+**Deploy (Vercel):** cada PR tiene su preview (el bot de Vercel comenta el link en el PR; ahí se ven los borradores de Trabajo) y `main` se publica sola en producción. Nada se indexa: meta `robots`, `robots.txt` y el header `X-Robots-Tag` salen de `siteConfig.indexable`, que solo pasa a `true` con `NEXT_PUBLIC_INDEXABLE=true` en producción (Etapa 7). Las URLs absolutas de los metadatos usan la del deploy (`getBaseUrl()` en `src/lib/site.ts`).
 
 ## Estructura
 

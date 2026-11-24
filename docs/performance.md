@@ -13,9 +13,9 @@ Aprobado el 24 nov (Etapa 2). Lo controla el job "Presupuesto de performance" de
 | TBT                        | ≤ 400 ms | Bloqueo del hilo principal; es la medida de laboratorio que anticipa el INP |
 | JS de la página            | ≤ 200 KB | Transferido (comprimido), todos los scripts de la ruta                      |
 
-Advertencia (no falla): Best Practices ≥ 95. SEO no se mide hasta la Etapa 6, porque el sitio está en `noindex` a propósito.
+Advertencia (no falla): Best Practices ≥ 95. SEO no se mide hasta la Etapa 7, porque el sitio está en `noindex` a propósito.
 
-## Meta para la auditoría de la Etapa 6
+## Meta para la auditoría de la Etapa 7
 
 - TBT ≤ 200 ms (INP < 200 ms en campo).
 - JS ≤ 150 KB.
