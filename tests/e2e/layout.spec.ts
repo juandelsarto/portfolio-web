@@ -51,3 +51,35 @@ test("el email de Contacto se copia y se anuncia", async ({
     "delsarto01@gmail.com",
   );
 });
+
+test("el logo del header cambia de dibujo con el tema", async ({ page }) => {
+  await page.goto("/");
+  const logo = page.getByRole("banner").locator("[data-skins] > span").first();
+  const visibleSvg = () =>
+    logo.evaluate((el) =>
+      [...el.querySelectorAll("svg")].findIndex(
+        (svg) => svg.getBoundingClientRect().width > 0,
+      ),
+    );
+  await page.evaluate(() => (document.documentElement.dataset.theme = "light"));
+  expect(await visibleSvg()).toBe(0);
+  await page.evaluate(() => (document.documentElement.dataset.theme = "dark"));
+  expect(await visibleSvg()).toBe(1);
+});
+
+test("con el puntero encima, el logo recorre las skins cada 0,7 s", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const skins = page.getByRole("banner").locator("[data-skins]");
+  await skins.hover();
+  await expect(skins).not.toHaveAttribute("data-skin");
+  await expect(skins).toHaveAttribute("data-skin", "cassette-light", {
+    timeout: 1500,
+  });
+  await expect(skins).toHaveAttribute("data-skin", "y2k-light", {
+    timeout: 1500,
+  });
+  await page.mouse.move(700, 600);
+  await expect(skins).not.toHaveAttribute("data-skin");
+});

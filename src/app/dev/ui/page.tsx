@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { EmailCopy } from "@/components/site/email-copy";
 import { Logo } from "@/components/site/logo/Logo";
+import { LogoSkins } from "@/components/site/logo/logo-skins";
 import { ThemeToggle } from "@/components/site/theme-toggle";
 import { Button } from "@/components/ui/button";
 import tokens from "@/styles/tokens/tokens.json";
@@ -96,6 +97,10 @@ export default function DevUiPage() {
             <Logo key={size} className={size} />
           ))}
         </div>
+        <p className="text-sm text-muted-foreground">
+          Con el puntero encima recorre las skins archivadas (una cada 0,7 s):
+        </p>
+        <LogoSkins className="w-32" />
       </section>
     </main>
   );

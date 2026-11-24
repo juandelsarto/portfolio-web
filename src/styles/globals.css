@@ -97,10 +97,4 @@
   h4 {
     @apply font-display;
   }
-
-  /* El logo toma el color de acento en los dos temas (Core). */
-  :root {
-    --logo-line: var(--color-text-accent);
-    --logo-hair: var(--color-text-accent);
-  }
 }
