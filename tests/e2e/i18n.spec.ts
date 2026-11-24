@@ -38,3 +38,10 @@ test("los links internos conservan el idioma", async ({ page }) => {
   await banner.getByRole("link", { name: "Contacto" }).click();
   await expect(page).toHaveURL("/es#contacto");
 });
+
+test("en producción, sin piezas publicadas, no hay páginas de pieza", async ({
+  page,
+}) => {
+  const res = await page.goto("/es/work/calendario-familiar");
+  expect(res?.status()).toBe(404);
+});

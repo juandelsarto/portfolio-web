@@ -130,5 +130,54 @@
     "label": "Error 404",
     "title": "Esta página no existe.",
     "back": "Volver al inicio"
+  },
+  "Work": {
+    "intro": "Piezas propias, cortas y terminadas: apps chicas, componentes y experimentos. Cada una tiene su demo en vivo, una nota sobre cómo se hizo y el código.",
+    "filtersLabel": "Filtrar por tipo",
+    "filters": {
+      "all": "Todo",
+      "app": "Apps",
+      "componente": "Componentes",
+      "experimento": "Experimentos"
+    },
+    "count": "{n, plural, one {# pieza} other {# piezas}}",
+    "types": {
+      "app": "App",
+      "componente": "Componente",
+      "experimento": "Experimento"
+    },
+    "simulated": "Demo simulada",
+    "draft": "Borrador",
+    "view": "Ver pieza →",
+    "preview": "Vista previa de {piece}"
+  },
+  "Piece": {
+    "metaTitle": "{piece} — Juan Cruz Del Sarto",
+    "back": "← Trabajo",
+    "position": "{n} / {total}",
+    "positionSr": "Pieza {n} de {total}",
+    "ficha": "Ficha",
+    "type": "Tipo",
+    "role": "Rol",
+    "version": "Versión",
+    "stack": "Stack",
+    "links": "Links",
+    "openDemo": "Abrir demo ↗",
+    "code": "Código ↗",
+    "repoPrivate": "Repo privado, acceso a pedido",
+    "newTabSr": " (se abre en otra pestaña)",
+    "demoTitle": "Demo de {piece}",
+    "demoPending": "Demo pendiente",
+    "sections": {
+      "why": "Por qué lo hice",
+      "decisions": "Decisiones",
+      "how": "Cómo funciona",
+      "numbers": "Números",
+      "learned": "Qué aprendí y qué sigue"
+    },
+    "navLabel": "Otras piezas",
+    "prev": "Pieza anterior",
+    "next": "Pieza siguiente",
+    "keyboardHint": "← → también con teclado"
   }
 }

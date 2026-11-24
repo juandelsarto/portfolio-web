@@ -1,10 +1,11 @@
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { EmailCopy } from "@/components/site/email-copy";
 import { Logo } from "@/components/site/logo/Logo";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
-import { showWork, siteConfig } from "@/lib/site";
+import { siteConfig } from "@/lib/site";
+import { hasVisibleWork } from "@/lib/work";
 
 /**
  * Hero de la Home (Figma: Home v3 → Hero). A la derecha va el escenario del
@@ -13,6 +14,7 @@ import { showWork, siteConfig } from "@/lib/site";
  */
 export function Hero() {
   const t = useTranslations();
+  const showWork = hasVisibleWork(useLocale());
   return (
     <section
       id="inicio"

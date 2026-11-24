@@ -1,6 +1,9 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const PORT = 3100;
+// Los borradores de Trabajo solo se ven fuera de producción: sus tests corren
+// contra `pnpm dev` en otro puerto.
+const DEV_PORT = 3200;
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -12,11 +15,33 @@ export default defineConfig({
     baseURL: `http://localhost:${PORT}`,
     trace: "on-first-retry",
   },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
-  webServer: {
-    command: `pnpm build && pnpm start --port ${PORT}`,
-    url: `http://localhost:${PORT}`,
-    reuseExistingServer: !process.env.CI,
-    timeout: 180_000,
-  },
+  projects: [
+    {
+      name: "chromium",
+      testIgnore: /work\.spec\.ts/,
+      use: { ...devices["Desktop Chrome"] },
+    },
+    {
+      name: "borradores",
+      testMatch: /work\.spec\.ts/,
+      use: {
+        ...devices["Desktop Chrome"],
+        baseURL: `http://localhost:${DEV_PORT}`,
+      },
+    },
+  ],
+  webServer: [
+    {
+      command: `pnpm build && pnpm start --port ${PORT}`,
+      url: `http://localhost:${PORT}`,
+      reuseExistingServer: !process.env.CI,
+      timeout: 180_000,
+    },
+    {
+      command: `pnpm dev --port ${DEV_PORT}`,
+      url: `http://localhost:${DEV_PORT}/es`,
+      reuseExistingServer: !process.env.CI,
+      timeout: 180_000,
+    },
+  ],
 });
