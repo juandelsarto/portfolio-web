@@ -5,7 +5,8 @@ El logo es un dibujo de la cara de Juan: pelo, cejas, anteojos, bigote y barba. 
 - **Fuente única:** `src/components/site/logo/logo.svg`.
 - **Componente:** `Logo` (`src/components/site/logo/Logo.tsx`).
 - **Figma:** component set `Logo`, variante `Skin=Core` (claro y oscuro), en la página Design System.
-- **Favicon de 16 y 32 px:** monograma JC en Afacad Flux, sin fondo y en color acento (frame "Marca" en Figma). A ese tamaño la cara no se lee.
+- **Dónde va:** el logo se usa en todo el sitio, incluido el header (siempre visible) y el favicon de 32 px.
+- **Favicon de 16 px:** es el único lugar del monograma JC (Afacad Flux, sin fondo, color acento; frame "Marca" en Figma), porque a ese tamaño la cara no se lee.
 
 ## Estructura
 

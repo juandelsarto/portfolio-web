@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { HeaderAfterHero } from "@/components/site/header-after-hero";
-import { Monogram } from "@/components/site/monogram";
+import { Logo } from "@/components/site/logo/Logo";
 import { ThemeToggle } from "@/components/site/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { homeSections, siteConfig } from "@/lib/site";
@@ -12,7 +12,8 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-border bg-background">
       <div className="mx-auto flex h-15 max-w-[90rem] items-center justify-between gap-6 px-4 md:h-18 md:px-8 xl:px-16">
         <Link href="/" className="flex items-center gap-3 rounded-sm">
-          <Monogram className="size-6 text-xl md:size-7 md:text-2xl" />
+          {/* El monograma JC queda solo para el favicon de 16 px; acá va siempre el logo. */}
+          <Logo decorative className="w-5 md:w-6" />
           <span className="text-sm font-semibold md:text-[0.9375rem]">
             {siteConfig.name}
             <span className="sr-only">, ir al inicio</span>

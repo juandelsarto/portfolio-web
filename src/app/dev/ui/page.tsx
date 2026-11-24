@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 
 import { EmailCopy } from "@/components/site/email-copy";
 import { Logo } from "@/components/site/logo/Logo";
-import { Monogram } from "@/components/site/monogram";
 import { ThemeToggle } from "@/components/site/theme-toggle";
 import { Button } from "@/components/ui/button";
 import tokens from "@/styles/tokens/tokens.json";
@@ -78,10 +77,9 @@ export default function DevUiPage() {
 
       <section aria-labelledby="email" className="flex flex-col gap-4">
         <h2 id="email" className="text-2xl font-semibold">
-          Email copiable y monograma
+          Email copiable
         </h2>
         <div className="flex flex-wrap items-center gap-6">
-          <Monogram />
           <EmailCopy />
         </div>
         <div className="rounded-lg bg-inverse p-8">
