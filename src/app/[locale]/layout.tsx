@@ -9,7 +9,7 @@ import { SiteHeader } from "@/components/site/site-header";
 import { SkipLink } from "@/components/site/skip-link";
 import { routing } from "@/i18n/routing";
 import { fontVariables } from "@/lib/fonts";
-import { siteConfig } from "@/lib/site";
+import { getBaseUrl, siteConfig } from "@/lib/site";
 import { themeScript } from "@/lib/theme";
 
 import "@/styles/globals.css";
@@ -24,17 +24,67 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Meta" });
   return {
-    metadataBase: new URL(siteConfig.url),
+    metadataBase: getBaseUrl(),
     title: t("title"),
     description: t("description"),
+    applicationName: siteConfig.name,
+    authors: [{ name: siteConfig.name, url: siteConfig.url }],
+    alternates: { canonical: `/${locale}` },
     robots: {
       index: siteConfig.indexable,
       follow: siteConfig.indexable,
     },
+    // La imagen OG y la de Twitter salen de opengraph-image.png y
+    // twitter-image.png en esta carpeta (frame "og-image-1200x630" de Figma).
     openGraph: {
+      type: "website",
+      siteName: siteConfig.name,
+      url: `/${locale}`,
       locale: t("ogLocale"),
       title: t("title"),
       description: t("description"),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+    },
+    // Favicon: 16 px con el monograma JC y 32 px con el logo, en la versión del
+    // tema del sistema (Figma: frame "Marca"). favicon.ico está en app/; el
+    // resto, en public/icons/.
+    icons: {
+      icon: [
+        {
+          url: "/icons/favicon-16.png",
+          sizes: "16x16",
+          type: "image/png",
+          media: "(prefers-color-scheme: light)",
+        },
+        {
+          url: "/icons/favicon-16-dark.png",
+          sizes: "16x16",
+          type: "image/png",
+          media: "(prefers-color-scheme: dark)",
+        },
+        {
+          url: "/icons/favicon-32.png",
+          sizes: "32x32",
+          type: "image/png",
+          media: "(prefers-color-scheme: light)",
+        },
+        {
+          url: "/icons/favicon-32-dark.png",
+          sizes: "32x32",
+          type: "image/png",
+          media: "(prefers-color-scheme: dark)",
+        },
+        { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+      ],
+      apple: {
+        url: "/icons/apple-icon.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
     },
   };
 }
