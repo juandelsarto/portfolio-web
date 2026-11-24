@@ -83,3 +83,19 @@ test("con el puntero encima, el logo recorre las skins cada 0,7 s", async ({
   await page.mouse.move(700, 600);
   await expect(skins).not.toHaveAttribute("data-skin");
 });
+
+test("el footer es igual en los dos temas: fondo oscuro y texto claro", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const colors = () =>
+    page.locator("#contacto").evaluate((el) => {
+      const s = getComputedStyle(el);
+      return [s.backgroundColor, s.color];
+    });
+  await page.evaluate(() => (document.documentElement.dataset.theme = "light"));
+  const light = await colors();
+  await page.evaluate(() => (document.documentElement.dataset.theme = "dark"));
+  expect(await colors()).toEqual(light);
+  expect(light).toEqual(["rgb(4, 16, 32)", "rgb(248, 248, 250)"]);
+});

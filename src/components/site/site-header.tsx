@@ -13,7 +13,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-15 max-w-[90rem] items-center justify-between gap-6 px-4 md:h-18 md:px-8 xl:px-16">
         <Link href="/" className="flex items-center gap-3 rounded-sm">
           {/* Siempre el logo (el monograma JC queda solo para el favicon de 16 px). */}
-          <LogoSkins decorative className="w-8 md:w-9" />
+          <LogoSkins decorative className="size-8 md:size-9" />
           <span className="text-sm font-semibold md:text-[0.9375rem]">
             {siteConfig.name}
             <span className="sr-only">, ir al inicio</span>

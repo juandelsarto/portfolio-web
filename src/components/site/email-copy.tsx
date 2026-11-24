@@ -7,7 +7,7 @@ import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 interface EmailCopyProps {
-  /** `grande`: el email protagonista de Contacto (Afacad Flux, fondo inverso). */
+  /** `grande`: el email protagonista de Contacto (Afacad Flux). */
   size?: "normal" | "grande";
   className?: string;
 }
@@ -49,7 +49,7 @@ export function EmailCopy({ size = "normal", className }: EmailCopyProps) {
         className={cn(
           "underline-offset-4 hover:underline",
           grande
-            ? "font-display text-[2rem] leading-tight font-bold tracking-tight text-inverse-foreground sm:text-5xl lg:text-[3.25rem]"
+            ? "font-display text-[2rem] leading-tight font-bold tracking-tight text-foreground sm:text-5xl lg:text-[3.25rem]"
             : "font-medium text-foreground underline",
         )}
       >
@@ -65,24 +65,19 @@ export function EmailCopy({ size = "normal", className }: EmailCopyProps) {
         className={cn(
           "inline-flex shrink-0 items-center gap-1.5 rounded-sm p-1 transition-colors",
           grande
-            ? "text-inverse-muted hover:text-inverse-foreground"
+            ? "text-muted-foreground hover:text-foreground"
             : "text-muted-foreground hover:text-foreground",
         )}
       >
         {copied ? (
           <>
             <CheckIcon
-              className={
-                grande ? "size-6 text-inverse-foreground" : "size-4 text-brand"
-              }
+              className={cn("text-brand", grande ? "size-6" : "size-4")}
             />
-            {/* Sobre el fondo inverso el acento no llega al contraste mínimo: ahí va en el color del texto. */}
             <span
               className={cn(
-                "font-mono tracking-wide uppercase",
-                grande
-                  ? "text-sm text-inverse-foreground"
-                  : "text-xs text-brand",
+                "font-mono tracking-wide text-brand uppercase",
+                grande ? "text-sm" : "text-xs",
               )}
             >
               Copiado

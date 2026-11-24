@@ -23,7 +23,7 @@ export function Logo({ decorative = false, className }: LogoProps) {
   return (
     <span
       className={cn(
-        "inline-block aspect-square shrink-0 text-brand",
+        "inline-block aspect-square shrink-0 overflow-hidden align-middle text-brand",
         className,
       )}
       {...(decorative

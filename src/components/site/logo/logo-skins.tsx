@@ -74,7 +74,11 @@ export function LogoSkins({ className, ...logoProps }: LogoProps) {
 
   return (
     <span
-      className={cn("relative inline-block aspect-square shrink-0", className)}
+      // Caja cuadrada y de tamaño fijo: las skins (lienzo de 440 × 440) no se deforman.
+      className={cn(
+        "relative block aspect-square shrink-0 overflow-hidden",
+        className,
+      )}
       onPointerEnter={(e) => e.pointerType === "mouse" && start()}
       onPointerLeave={stop}
       data-skins=""

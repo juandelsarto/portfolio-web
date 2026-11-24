@@ -83,7 +83,10 @@ export default function DevUiPage() {
         <div className="flex flex-wrap items-center gap-6">
           <EmailCopy />
         </div>
-        <div className="rounded-lg bg-inverse p-8">
+        <div
+          data-theme="dark"
+          className="rounded-lg bg-background p-8 text-foreground"
+        >
           <EmailCopy size="grande" />
         </div>
       </section>
