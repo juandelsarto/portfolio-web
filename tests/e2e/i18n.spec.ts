@@ -1,5 +1,7 @@
 import { expect, test } from "@playwright/test";
 
+import { allPieces, publishedPieces } from "./pieces";
+
 test("la raíz redirige a /es", async ({ page }) => {
   await page.goto("/");
   await expect(page).toHaveURL("/es");
@@ -39,9 +41,21 @@ test("los links internos conservan el idioma", async ({ page }) => {
   await expect(page).toHaveURL("/es#contacto");
 });
 
-test("en producción, sin piezas publicadas, no hay páginas de pieza", async ({
+test("en producción, los borradores no tienen página", async ({ page }) => {
+  const draft = allPieces.find((p) => p.status === "borrador");
+  test.skip(!draft, "no hay borradores");
+  const res = await page.goto(`/es/work/${draft!.slug}`);
+  expect(res?.status()).toBe(404);
+});
+
+test("en producción, cada pieza publicada tiene su página", async ({
   page,
 }) => {
-  const res = await page.goto("/es/work/calendario-familiar");
-  expect(res?.status()).toBe(404);
+  for (const piece of publishedPieces) {
+    const res = await page.goto(`/es/work/${piece.slug}`);
+    expect(res?.status(), piece.slug).toBe(200);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+      piece.title,
+    );
+  }
 });
