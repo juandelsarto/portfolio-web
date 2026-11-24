@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 
 for (const theme of ["light", "dark"] as const) {
   test(`la Home no tiene errores de axe (tema ${theme})`, async ({ page }) => {
-    await page.emulateMedia({ colorScheme: theme });
+    await page.emulateMedia({ colorScheme: theme, reducedMotion: "reduce" });
     await page.goto("/");
     await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
     const { violations } = await new AxeBuilder({ page })

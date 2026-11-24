@@ -51,7 +51,18 @@ test("el contenido no queda tapado por la barra flotante al final de la página"
 }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto("/es");
-  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  // Sin scroll suave: medir con la página ya al final.
+  await page.evaluate(() =>
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "instant" }),
+  );
+  await expect
+    .poll(() =>
+      page.evaluate(
+        () =>
+          window.scrollY + window.innerHeight >= document.body.scrollHeight - 1,
+      ),
+    )
+    .toBe(true);
   const bar = await page
     .getByRole("navigation", { name: "Navegación rápida" })
     .boundingBox();
