@@ -1,0 +1,118 @@
+{
+  "Meta": {
+    "title": "",
+    "description": "",
+    "ogLocale": ""
+  },
+  "Site": {
+    "role": "",
+    "location": ""
+  },
+  "SkipLink": "",
+  "Nav": {
+    "label": "",
+    "work": "",
+    "trajectory": "",
+    "about": "",
+    "contact": "",
+    "home": ""
+  },
+  "Cv": {
+    "short": "",
+    "shortSr": "",
+    "download": "",
+    "downloadArrow": "",
+    "pdfSr": ""
+  },
+  "MobileNav": {
+    "label": ""
+  },
+  "Theme": {
+    "toDark": "",
+    "toLight": "",
+    "darkOn": "",
+    "lightOn": ""
+  },
+  "Email": {
+    "copy": "",
+    "copied": "",
+    "copiedShort": ""
+  },
+  "Footer": {
+    "label": "",
+    "title": "",
+    "body": "",
+    "socialSr": "",
+    "copyright": "",
+    "stack": "",
+    "code": "",
+    "newTabSr": ""
+  },
+  "Hero": {
+    "lead": "",
+    "proposal": "",
+    "ctaWork": ""
+  },
+  "About": {
+    "bio": ["", ""],
+    "areas": ["", "", ""],
+    "howTitle": "",
+    "principles": [
+      {
+        "title": "",
+        "body": "",
+        "practice": ""
+      },
+      {
+        "title": "",
+        "body": "",
+        "practice": ""
+      },
+      {
+        "title": "",
+        "body": "",
+        "practice": ""
+      },
+      {
+        "title": "",
+        "body": "",
+        "practice": ""
+      },
+      {
+        "title": "",
+        "body": "",
+        "practice": ""
+      }
+    ],
+    "practiceLabel": "",
+    "closing": "",
+    "toolsTitle": "",
+    "tools": [
+      {
+        "area": "",
+        "items": [""]
+      },
+      {
+        "area": "",
+        "items": ["", "", "", "", "", ""]
+      },
+      {
+        "area": "",
+        "items": ["", "", "", ""]
+      },
+      {
+        "area": "",
+        "items": ["", "", "", "", ""]
+      },
+      {
+        "area": "",
+        "items": ["", "", "", ""]
+      }
+    ]
+  },
+  "NotFound": {
+    "label": "",
+    "title": "",
+    "back": ""
+  }
+}

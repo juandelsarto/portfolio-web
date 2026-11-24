@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { setRequestLocale } from "next-intl/server";
+import { use } from "react";
 
 import { EmailCopy } from "@/components/site/email-copy";
 import { Logo } from "@/components/site/logo/Logo";
@@ -18,8 +20,9 @@ export const metadata: Metadata = {
 
 // Página interna para revisar tokens y componentes en los dos temas. No se
 // publica en producción (VERCEL_ENV=production); sí se ve en local y en los previews.
-export default function DevUiPage() {
+export default function DevUiPage({ params }: PageProps<"/[locale]/dev/ui">) {
   if (process.env.VERCEL_ENV === "production") notFound();
+  setRequestLocale(use(params).locale);
 
   return (
     <main className="mx-auto flex max-w-4xl flex-col gap-12 p-8">

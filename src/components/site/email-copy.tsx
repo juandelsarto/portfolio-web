@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import { CheckIcon, CopyIcon } from "@/components/site/icons";
@@ -17,14 +18,15 @@ interface EmailCopyProps {
  * "Copiado" unos segundos y lo anuncia al lector de pantalla.
  */
 export function EmailCopy({ size = "normal", className }: EmailCopyProps) {
+  const t = useTranslations("Email");
   const [copied, setCopied] = useState(false);
   const grande = size === "grande";
   const [user, domain] = siteConfig.email.split("@");
 
   useEffect(() => {
     if (!copied) return;
-    const t = setTimeout(() => setCopied(false), 2500);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => setCopied(false), 2500);
+    return () => clearTimeout(timer);
   }, [copied]);
 
   async function copy() {
@@ -61,7 +63,7 @@ export function EmailCopy({ size = "normal", className }: EmailCopyProps) {
       <button
         type="button"
         onClick={copy}
-        aria-label={copied ? "Email copiado" : "Copiar email"}
+        aria-label={copied ? t("copied") : t("copy")}
         className={cn(
           "inline-flex shrink-0 items-center gap-1.5 rounded-sm p-1 transition-colors",
           grande
@@ -80,7 +82,7 @@ export function EmailCopy({ size = "normal", className }: EmailCopyProps) {
                 grande ? "text-sm" : "text-xs",
               )}
             >
-              Copiado
+              {t("copiedShort")}
             </span>
           </>
         ) : (
@@ -88,7 +90,7 @@ export function EmailCopy({ size = "normal", className }: EmailCopyProps) {
         )}
       </button>
       <span role="status" className="sr-only">
-        {copied ? "Email copiado" : ""}
+        {copied ? t("copied") : ""}
       </span>
     </div>
   );

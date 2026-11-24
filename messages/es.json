@@ -1,0 +1,134 @@
+{
+  "Meta": {
+    "title": "Juan Cruz Del Sarto — Design Engineer · Front-End y UI",
+    "description": "Design Engineer en Buenos Aires. Apps, componentes y experimentos propios, con demo en vivo y el código a la vista: de Figma a React, con atención al detalle.",
+    "ogLocale": "es_AR"
+  },
+  "Site": {
+    "role": "Design Engineer · Front-End y UI",
+    "location": "Buenos Aires, Argentina"
+  },
+  "SkipLink": "Ir al contenido principal",
+  "Nav": {
+    "label": "Secciones",
+    "work": "Trabajo",
+    "trajectory": "Trayectoria",
+    "about": "Sobre mí",
+    "contact": "Contacto",
+    "home": ", ir al inicio"
+  },
+  "Cv": {
+    "short": "CV ↓",
+    "shortSr": " (descargar, PDF)",
+    "download": "Descargar CV",
+    "downloadArrow": "Descargar CV ↓",
+    "pdfSr": " (PDF)"
+  },
+  "MobileNav": {
+    "label": "Navegación rápida"
+  },
+  "Theme": {
+    "toDark": "Cambiar a tema oscuro",
+    "toLight": "Cambiar a tema claro",
+    "darkOn": "Tema oscuro activado",
+    "lightOn": "Tema claro activado"
+  },
+  "Email": {
+    "copy": "Copiar email",
+    "copied": "Email copiado",
+    "copiedShort": "Copiado"
+  },
+  "Footer": {
+    "label": "Contacto",
+    "title": "Hablemos",
+    "body": "¿Un equipo, un producto o un proyecto donde diseño y código van juntos? La forma más directa es por email.",
+    "socialSr": " ({network}, se abre en otra pestaña)",
+    "copyright": "© {year} · {name} · Design Engineer · {location}",
+    "stack": "Diseñado y desarrollado con Next.js, Tailwind y shadcn/ui ·",
+    "code": "Código del sitio ↗",
+    "newTabSr": " (se abre en otra pestaña)"
+  },
+  "Hero": {
+    "lead": "Descubro problemas, exploro soluciones y construyo experiencias.",
+    "proposal": "Del wireframe a production: productos que se ven como se pensaron y funcionan como se prometieron.",
+    "ctaWork": "Ver trabajo ↓"
+  },
+  "About": {
+    "bio": [
+      "Soy Design Engineer y diseñador multimedial de formación. Disfruto estar entre dos mundos: pensar cómo se ve y se siente algo, y después construirlo hasta que funcione de verdad. Que algo funcione bien y que se vea bien es el mismo trabajo.",
+      "La producción audiovisual dejó una idea que sigue vigente: una experiencia se construye con ritmo, narrativa y detalle. En una interfaz eso se traduce en jerarquía, transiciones y respuestas que acompañan a quien la usa."
+    ],
+    "areas": ["Diseño", "Experiencia", "Ingeniería"],
+    "howTitle": "Cómo trabajo",
+    "principles": [
+      {
+        "title": "Entender antes de abrir Figma",
+        "body": "Qué se resuelve, para quién y por qué.",
+        "practice": "el problema se escribe en una oración antes de diseñar; si no se puede, todavía no está entendido."
+      },
+      {
+        "title": "Diseño y código a la par",
+        "body": "Diseñar sabiendo cómo se construye evita retrabajo; construir entendiendo el diseño cuida los detalles.",
+        "practice": "componentes y tokens se definen una sola vez y se usan igual en Figma y en código."
+      },
+      {
+        "title": "Accesibilidad desde el inicio",
+        "body": "Contraste, jerarquía, HTML semántico y teclado como criterios de diseño, no como chequeo final.",
+        "practice": "contraste y teclado se revisan en el diseño, y axe corre en el CI antes de cada merge."
+      },
+      {
+        "title": "Terminado y por versiones",
+        "body": "Priorizar la entrega continua y la iteración por sobre el producto completo.",
+        "practice": "cada versión se publica cuando funciona de punta a punta; lo que falta va a la siguiente."
+      },
+      {
+        "title": "Spec primero, revisión siempre",
+        "body": "La AI forma parte del flujo diario (Claude Code, Codex, MCP servers y Figma), con Spec-Driven Development: comportamiento, estados y criterios se definen antes de generar código. Las tareas que se repiten todos los días se automatizan con skills propias.",
+        "practice": "lo que genera la AI se revisa, se prueba y se entiende antes de integrarse."
+      }
+    ],
+    "practiceLabel": "En la práctica:",
+    "closing": "La AI acelera. El criterio no se delega.",
+    "toolsTitle": "Herramientas",
+    "tools": [
+      {
+        "area": "Diseño",
+        "items": ["Figma"]
+      },
+      {
+        "area": "Frontend",
+        "items": [
+          "React",
+          "TypeScript",
+          "Next.js",
+          "React Native",
+          "Tailwind CSS",
+          "shadcn/ui"
+        ]
+      },
+      {
+        "area": "Calidad",
+        "items": ["Vitest", "Playwright", "Cypress", "axe"]
+      },
+      {
+        "area": "Tooling y entrega",
+        "items": [
+          "Git",
+          "pnpm",
+          "Vite",
+          "CI/CD con GitHub Actions y GitLab",
+          "Vercel"
+        ]
+      },
+      {
+        "area": "Con AI",
+        "items": ["Claude Code", "Codex", "MCP servers", "skills propias"]
+      }
+    ]
+  },
+  "NotFound": {
+    "label": "Error 404",
+    "title": "Esta página no existe.",
+    "back": "Volver al inicio"
+  }
+}

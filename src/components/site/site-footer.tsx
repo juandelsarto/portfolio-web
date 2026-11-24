@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 import { EmailCopy } from "@/components/site/email-copy";
 import { siteConfig } from "@/lib/site";
 
@@ -13,6 +15,7 @@ const mono = "font-mono text-xs tracking-wide uppercase";
  * el email va grande y copiable. Siempre en tema oscuro: fondo navy y texto claro.
  */
 export function SiteFooter() {
+  const t = useTranslations();
   const year = new Date().getFullYear();
 
   return (
@@ -27,16 +30,13 @@ export function SiteFooter() {
           [data-theme="dark"], así el contraste no cambia con el tema del sitio. */}
       <div data-theme="dark" className="bg-background text-foreground">
         <div className="mx-auto flex max-w-[90rem] flex-col gap-9 px-4 pt-16 pb-28 md:px-8 md:pt-24 md:pb-10 xl:px-16">
-          <p className={`${mono} text-muted-foreground`}>Contacto</p>
+          <p className={`${mono} text-muted-foreground`}>{t("Footer.label")}</p>
 
           <div className="flex flex-col gap-4">
             <h2 id="contacto-titulo" className="text-3xl font-bold">
-              Hablemos
+              {t("Footer.title")}
             </h2>
-            <p className="max-w-xl text-foreground">
-              ¿Un equipo, un producto o un proyecto donde diseño y código van
-              juntos? La forma más directa es por email.
-            </p>
+            <p className="max-w-xl text-foreground">{t("Footer.body")}</p>
           </div>
 
           <EmailCopy size="grande" />
@@ -54,8 +54,7 @@ export function SiteFooter() {
                     {/* El nombre accesible empieza con el texto visible (WCAG 2.5.3). */}
                     {short}
                     <span className="sr-only">
-                      {" "}
-                      ({label}, se abre en otra pestaña)
+                      {t("Footer.socialSr", { network: label })}
                     </span>
                   </a>
                 </li>
@@ -67,29 +66,31 @@ export function SiteFooter() {
               download
               className="font-medium underline-offset-4 hover:underline"
             >
-              Descargar CV ↓<span className="sr-only"> (PDF)</span>
+              {t("Cv.downloadArrow")}
+              <span className="sr-only">{t("Cv.pdfSr")}</span>
             </a>
           </div>
 
           <div className="flex flex-col gap-2 border-t border-border pt-5 md:flex-row md:items-center md:justify-between">
             <p className={`${mono} text-muted-foreground`}>
-              © {year} · {siteConfig.name} · Design Engineer ·{" "}
-              {siteConfig.location}
+              {t("Footer.copyright", {
+                year,
+                name: siteConfig.name,
+                location: t("Site.location"),
+              })}
             </p>
             <p
               className={`${mono} flex flex-wrap gap-x-2 text-muted-foreground`}
             >
-              <span>
-                Diseñado y desarrollado con Next.js, Tailwind y shadcn/ui ·
-              </span>
+              <span>{t("Footer.stack")}</span>
               <a
                 href={siteConfig.links.repo}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline-offset-4 hover:text-foreground hover:underline"
               >
-                Código del sitio ↗
-                <span className="sr-only"> (se abre en otra pestaña)</span>
+                {t("Footer.code")}
+                <span className="sr-only">{t("Footer.newTabSr")}</span>
               </a>
             </p>
           </div>

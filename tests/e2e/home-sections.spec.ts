@@ -52,7 +52,7 @@ for (const theme of ["light", "dark"] as const) {
       "Esta página no existe.",
     );
     await page.getByRole("link", { name: "Volver al inicio" }).click();
-    await expect(page).toHaveURL("/");
+    await expect(page).toHaveURL("/es");
     await page.goto("/esta-pagina-no-existe");
     const { violations } = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])

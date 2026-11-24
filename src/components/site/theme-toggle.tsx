@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState, useSyncExternalStore } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -33,6 +34,7 @@ function subscribe(onChange: () => void) {
 
 /** Alterna tema claro y oscuro, lo guarda y anuncia el cambio. */
 export function ThemeToggle() {
+  const t = useTranslations("Theme");
   const theme = useSyncExternalStore<Theme | null>(
     subscribe,
     getTheme,
@@ -47,14 +49,10 @@ export function ThemeToggle() {
         variant="outline"
         size="icon"
         className="rounded-full"
-        aria-label={
-          next === "dark" ? "Cambiar a tema oscuro" : "Cambiar a tema claro"
-        }
+        aria-label={next === "dark" ? t("toDark") : t("toLight")}
         onClick={() => {
           setTheme(next);
-          setAnnouncement(
-            next === "dark" ? "Tema oscuro activado" : "Tema claro activado",
-          );
+          setAnnouncement(next === "dark" ? t("darkOn") : t("lightOn"));
         }}
       >
         <ThemeIcon />

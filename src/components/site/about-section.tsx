@@ -1,5 +1,16 @@
+import { useTranslations } from "next-intl";
+
 import { HomeSection } from "@/components/site/home-section";
-import { about } from "@/content/home";
+
+interface Principle {
+  title: string;
+  body: string;
+  practice: string;
+}
+interface ToolGroup {
+  area: string;
+  items: string[];
+}
 
 const subLabel =
   "font-mono text-xs font-medium tracking-wide text-brand uppercase";
@@ -9,22 +20,29 @@ const rowTitle = "font-display text-lg font-semibold";
 
 /** 03 Sobre mí: bio, Cómo trabajo (cinco principios) y herramientas. */
 export function AboutSection() {
+  const t = useTranslations("About");
+  const nav = useTranslations("Nav");
+  const bio = t.raw("bio") as string[];
+  const areas = t.raw("areas") as string[];
+  const principles = t.raw("principles") as Principle[];
+  const tools = t.raw("tools") as ToolGroup[];
+
   return (
-    <HomeSection id="sobre-mi" number="03" label={about.label}>
+    <HomeSection id="sobre-mi" number="03" label={nav("about")}>
       <div className="flex flex-col gap-12">
         <div className="flex max-w-[43rem] flex-col gap-5 text-base leading-[1.55] text-foreground-secondary md:text-lg">
-          {about.bio.map((p) => (
+          {bio.map((p) => (
             <p key={p.slice(0, 24)}>{p}</p>
           ))}
           <p className="font-mono text-xs tracking-wide text-muted-foreground uppercase">
-            {about.areas.join(" · ")}
+            {areas.join(" · ")}
           </p>
         </div>
 
         <div className="flex flex-col gap-4">
-          <h3 className={subLabel}>{about.howTitle}</h3>
+          <h3 className={subLabel}>{t("howTitle")}</h3>
           <ol className="border-t border-border">
-            {about.principles.map((p, i) => (
+            {principles.map((p, i) => (
               <li key={p.title} className={row}>
                 <p className="flex items-baseline gap-3">
                   <span
@@ -36,7 +54,7 @@ export function AboutSection() {
                   <span className={rowTitle}>{p.title}</span>
                 </p>
                 <p className="text-[0.9375rem] leading-normal text-muted-foreground">
-                  {p.body} <em>{about.practiceLabel}</em> {p.practice}
+                  {p.body} <em>{t("practiceLabel")}</em> {p.practice}
                 </p>
               </li>
             ))}
@@ -48,18 +66,18 @@ export function AboutSection() {
           >
             <div className="flex flex-col gap-1">
               <p className="font-display text-2xl font-semibold">
-                {about.closing}
+                {t("closing")}
               </p>
             </div>
           </aside>
 
-          <h3 className={`${subLabel} pt-10`}>{about.toolsTitle}</h3>
+          <h3 className={`${subLabel} pt-10`}>{t("toolsTitle")}</h3>
           <dl className="border-t border-border">
-            {about.tools.map((t) => (
-              <div key={t.area} className={row}>
-                <dt className={rowTitle}>{t.area}</dt>
+            {tools.map((tool) => (
+              <div key={tool.area} className={row}>
+                <dt className={rowTitle}>{tool.area}</dt>
                 <dd className="text-[0.9375rem] leading-normal text-muted-foreground">
-                  {t.items.join(" · ")}
+                  {tool.items.join(" · ")}
                 </dd>
               </div>
             ))}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import { EmailCopy } from "@/components/site/email-copy";
@@ -12,13 +13,14 @@ import { cn } from "@/lib/utils";
  * "Tras hero" de Figma). En páginas sin hero (#inicio) se muestran siempre.
  */
 export function HeaderAfterHero() {
+  const t = useTranslations("Cv");
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const hero = document.getElementById("inicio");
     if (!hero) {
-      const t = setTimeout(() => setVisible(true), 0);
-      return () => clearTimeout(t);
+      const timer = setTimeout(() => setVisible(true), 0);
+      return () => clearTimeout(timer);
     }
     const observer = new IntersectionObserver(
       ([entry]) => setVisible(!entry?.isIntersecting),
@@ -42,7 +44,8 @@ export function HeaderAfterHero() {
       <EmailCopy />
       <Button variant="outline" asChild>
         <a href={siteConfig.cvUrl} download>
-          CV ↓<span className="sr-only"> (descargar, PDF)</span>
+          {t("short")}
+          <span className="sr-only">{t("shortSr")}</span>
         </a>
       </Button>
     </div>
