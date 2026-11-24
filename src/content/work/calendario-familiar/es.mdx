@@ -15,19 +15,26 @@ stack: ["React", "TypeScript", "Vite", "Chakra UI"]
 # estos campos (menos years, demoNote y metrics, que son opcionales).
 #
 # demoUrl: "https://…"        # deploy público de la demo (se embebe en un iframe)
-# demoNote: "Datos de ejemplo…"   # nota bajo la demo (opcional)
+demoNote: "Datos de ejemplo…"
 # cover: "/work/calendario-familiar.webp"   # captura fija, en public/work/
 # repoUrl: "https://github.com/juandelsarto/…"
-# why: "El problema propio que disparó la pieza, en 2 o 3 oraciones."
-# decisions:                  # de 2 a 4
-#   - title: "La decisión"
-#     body: "Su porqué y lo que se descartó."
-#   - title: "…"
-#     body: "…"
-# metrics:                    # opcional: solo lo medido y real; si no hay, la sección no aparece
-#   - value: "…"
-#     label: "Qué se midió y con qué método"
-# learned: "Lo que se haría distinto hoy y qué trae la próxima versión."
+why: "El problema propio que disparó la pieza, en 2 o 3 oraciones."
+decisions:
+  - title: "La decisión"
+    body: "Su porqué y lo que se descartó."
+  - title: "…"
+    body: "…"
+metrics:
+  - value: "…"
+    label: "Qué se midió y con qué método"
+learned: "Lo que se haría distinto hoy y qué trae la próxima versión."
 ---
 
-{/* Cómo funciona (opcional en piezas chicas): un diagrama o el fragmento de código clave, con una línea de contexto. Escribirlo acá abajo, en MDX. */}
+Un diagrama o el fragmento de código clave, con una línea de contexto.
+
+```ts
+// Fragmento de código clave
+export function ejemplo() {
+  return true;
+}
+```
