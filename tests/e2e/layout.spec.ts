@@ -89,7 +89,7 @@ test("el footer es igual en los dos temas: fondo oscuro y texto claro", async ({
 }) => {
   await page.goto("/");
   const colors = () =>
-    page.locator("#contacto").evaluate((el) => {
+    page.locator("#contacto > [data-theme=dark]").evaluate((el) => {
       const s = getComputedStyle(el);
       return [s.backgroundColor, s.color];
     });
@@ -98,4 +98,29 @@ test("el footer es igual en los dos temas: fondo oscuro y texto claro", async ({
   await page.evaluate(() => (document.documentElement.dataset.theme = "dark"));
   expect(await colors()).toEqual(light);
   expect(light).toEqual(["rgb(4, 16, 32)", "rgb(248, 248, 250)"]);
+});
+
+test("el footer tiene arriba el mismo borde que el header", async ({
+  page,
+}) => {
+  await page.goto("/");
+  for (const theme of ["light", "dark"]) {
+    await page.evaluate(
+      (t) => (document.documentElement.dataset.theme = t),
+      theme,
+    );
+    const header = await page
+      .getByRole("banner")
+      .evaluate((el) => [
+        getComputedStyle(el).borderBottomWidth,
+        getComputedStyle(el).borderBottomColor,
+      ]);
+    const footer = await page
+      .locator("#contacto")
+      .evaluate((el) => [
+        getComputedStyle(el).borderTopWidth,
+        getComputedStyle(el).borderTopColor,
+      ]);
+    expect(footer).toEqual(header);
+  }
 });

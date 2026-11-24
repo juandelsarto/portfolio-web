@@ -18,76 +18,81 @@ export function SiteFooter() {
   return (
     <footer
       id="contacto"
-      // Siempre en tema oscuro: los tokens se resuelven con sus valores de
-      // [data-theme="dark"], así el contraste no cambia con el tema del sitio.
-      data-theme="dark"
-      className="bg-background text-foreground"
+      // El borde superior es el mismo del header y sigue el tema del sitio:
+      // en oscuro separa el footer del fondo de la página, que es del mismo navy.
+      className="border-t border-border"
       aria-labelledby="contacto-titulo"
     >
-      <div className="mx-auto flex max-w-[90rem] flex-col gap-9 px-4 pt-16 pb-28 md:px-8 md:pt-24 md:pb-10 xl:px-16">
-        <p className={`${mono} text-muted-foreground`}>Contacto</p>
+      {/* Siempre en tema oscuro: los tokens se resuelven con sus valores de
+          [data-theme="dark"], así el contraste no cambia con el tema del sitio. */}
+      <div data-theme="dark" className="bg-background text-foreground">
+        <div className="mx-auto flex max-w-[90rem] flex-col gap-9 px-4 pt-16 pb-28 md:px-8 md:pt-24 md:pb-10 xl:px-16">
+          <p className={`${mono} text-muted-foreground`}>Contacto</p>
 
-        <div className="flex flex-col gap-4">
-          <h2 id="contacto-titulo" className="text-3xl font-bold">
-            Hablemos
-          </h2>
-          <p className="max-w-xl text-foreground">
-            ¿Un equipo, un producto o un proyecto donde diseño y código van
-            juntos? La forma más directa es por email.
-          </p>
-        </div>
+          <div className="flex flex-col gap-4">
+            <h2 id="contacto-titulo" className="text-3xl font-bold">
+              Hablemos
+            </h2>
+            <p className="max-w-xl text-foreground">
+              ¿Un equipo, un producto o un proyecto donde diseño y código van
+              juntos? La forma más directa es por email.
+            </p>
+          </div>
 
-        <EmailCopy size="grande" />
+          <EmailCopy size="grande" />
 
-        <div className="flex flex-wrap items-center gap-5">
-          <ul className="flex items-center gap-3">
-            {socials.map(({ label, short, href }) => (
-              <li key={label}>
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex size-10 items-center justify-center rounded-full border border-line-strong font-mono text-xs font-medium hover:bg-accent"
-                >
-                  {/* El nombre accesible empieza con el texto visible (WCAG 2.5.3). */}
-                  {short}
-                  <span className="sr-only">
-                    {" "}
-                    ({label}, se abre en otra pestaña)
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-          <span aria-hidden="true" className="h-6 w-px bg-border" />
-          <a
-            href={siteConfig.cvUrl}
-            download
-            className="font-medium underline-offset-4 hover:underline"
-          >
-            Descargar CV ↓<span className="sr-only"> (PDF)</span>
-          </a>
-        </div>
-
-        <div className="flex flex-col gap-2 border-t border-border pt-5 md:flex-row md:items-center md:justify-between">
-          <p className={`${mono} text-muted-foreground`}>
-            © {year} · {siteConfig.name} · Design Engineer ·{" "}
-            {siteConfig.location}
-          </p>
-          <p className={`${mono} flex flex-wrap gap-x-2 text-muted-foreground`}>
-            <span>
-              Diseñado y desarrollado con Next.js, Tailwind y shadcn/ui ·
-            </span>
+          <div className="flex flex-wrap items-center gap-5">
+            <ul className="flex items-center gap-3">
+              {socials.map(({ label, short, href }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex size-10 items-center justify-center rounded-full border border-line-strong font-mono text-xs font-medium hover:bg-accent"
+                  >
+                    {/* El nombre accesible empieza con el texto visible (WCAG 2.5.3). */}
+                    {short}
+                    <span className="sr-only">
+                      {" "}
+                      ({label}, se abre en otra pestaña)
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <span aria-hidden="true" className="h-6 w-px bg-border" />
             <a
-              href={siteConfig.links.repo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline-offset-4 hover:text-foreground hover:underline"
+              href={siteConfig.cvUrl}
+              download
+              className="font-medium underline-offset-4 hover:underline"
             >
-              Código del sitio ↗
-              <span className="sr-only"> (se abre en otra pestaña)</span>
+              Descargar CV ↓<span className="sr-only"> (PDF)</span>
             </a>
-          </p>
+          </div>
+
+          <div className="flex flex-col gap-2 border-t border-border pt-5 md:flex-row md:items-center md:justify-between">
+            <p className={`${mono} text-muted-foreground`}>
+              © {year} · {siteConfig.name} · Design Engineer ·{" "}
+              {siteConfig.location}
+            </p>
+            <p
+              className={`${mono} flex flex-wrap gap-x-2 text-muted-foreground`}
+            >
+              <span>
+                Diseñado y desarrollado con Next.js, Tailwind y shadcn/ui ·
+              </span>
+              <a
+                href={siteConfig.links.repo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline-offset-4 hover:text-foreground hover:underline"
+              >
+                Código del sitio ↗
+                <span className="sr-only"> (se abre en otra pestaña)</span>
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
