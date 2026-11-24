@@ -174,36 +174,37 @@
         "company": "",
         "role": "",
         "summary": "",
-        "detail": ""
+        "milestones": ["", "", ""]
       },
       {
         "years": "",
         "company": "",
         "role": "",
         "summary": "",
-        "detail": ""
+        "milestones": ["", "", "", ""]
       },
       {
         "years": "",
         "company": "",
         "role": "",
         "summary": "",
-        "detail": ""
+        "milestones": ["", ""]
       },
       {
         "years": "",
         "company": "",
         "role": "",
         "summary": "",
-        "detail": ""
+        "milestones": [""]
       },
       {
         "years": "",
         "company": "",
         "role": "",
         "summary": "",
-        "detail": ""
+        "milestones": [""]
       }
-    ]
+    ],
+    "milestones": ""
   }
 }

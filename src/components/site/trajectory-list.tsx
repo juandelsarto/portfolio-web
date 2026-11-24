@@ -9,7 +9,8 @@ export interface Job {
   company: string;
   role: string;
   summary: string;
-  detail: string;
+  /** Hitos del puesto: qué se hizo y en qué tipo de producto, uno por ítem. */
+  milestones: string[];
 }
 
 function Chevron({ open }: { open: boolean }) {
@@ -33,7 +34,15 @@ function Chevron({ open }: { open: boolean }) {
   );
 }
 
-function JobRow({ job, defaultOpen }: { job: Job; defaultOpen: boolean }) {
+function JobRow({
+  job,
+  defaultOpen,
+  milestonesLabel,
+}: {
+  job: Job;
+  defaultOpen: boolean;
+  milestonesLabel: string;
+}) {
   const [open, setOpen] = useState(defaultOpen);
   const detailId = useId();
 
@@ -51,8 +60,14 @@ function JobRow({ job, defaultOpen }: { job: Job; defaultOpen: boolean }) {
             {job.years}
           </span>
           <span className="flex flex-col gap-1">
-            <span className="font-display text-lg font-semibold">
-              {job.company} · {job.role}
+            {/* Empresa en Afacad Flux y rol en el acento, para distinguirlos. */}
+            <span className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
+              <span className="font-display text-lg font-semibold">
+                {job.company}
+              </span>
+              <span className="text-[0.9375rem] font-medium text-brand">
+                {job.role}
+              </span>
             </span>
             <span className="text-[0.9375rem] leading-normal font-normal text-muted-foreground">
               {job.summary}
@@ -63,21 +78,58 @@ function JobRow({ job, defaultOpen }: { job: Job; defaultOpen: boolean }) {
           </span>
         </button>
       </h3>
-      <div id={detailId} hidden={!open} className="pb-5 md:pl-48">
-        <p className="max-w-[51rem] text-[0.9375rem] leading-relaxed text-foreground-secondary">
-          {job.detail}
-        </p>
+      {/* Despliegue animado: la fila crece de 0fr a 1fr (CSS). Cerrado queda inerte,
+          fuera del foco y del lector de pantalla. */}
+      <div
+        id={detailId}
+        inert={!open}
+        className={cn(
+          "grid transition-[grid-template-rows,opacity,visibility] duration-300 ease-out motion-reduce:transition-none",
+          open
+            ? "visible grid-rows-[1fr] opacity-100"
+            : "invisible grid-rows-[0fr] opacity-0",
+        )}
+      >
+        <div className="overflow-hidden">
+          <div className="flex flex-col gap-3 pb-6 md:pl-48">
+            <p className="font-mono text-[0.6875rem] font-medium tracking-wide text-muted-foreground uppercase">
+              {milestonesLabel}
+            </p>
+            <ul className="flex max-w-[51rem] flex-col gap-2.5">
+              {job.milestones.map((m) => (
+                <li
+                  key={m}
+                  className="relative pl-6 text-[0.9375rem] leading-relaxed text-foreground-secondary"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-0 text-brand"
+                  >
+                    —
+                  </span>
+                  {m}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </li>
   );
 }
 
 /**
- * Trayectoria: un puesto por fila con años, empresa, rol y resumen; el detalle
- * se despliega con un botón (aria-expanded). El primero empieza abierto, como
- * en Figma.
+ * Trayectoria: un puesto por fila con años, empresa, rol y resumen; los hitos
+ * se despliegan con un botón (aria-expanded) y una transición CSS. El primero
+ * empieza abierto, como en Figma.
  */
-export function TrajectoryList({ jobs }: { jobs: Job[] }) {
+export function TrajectoryList({
+  jobs,
+  milestonesLabel,
+}: {
+  jobs: Job[];
+  milestonesLabel: string;
+}) {
   return (
     <ol className="border-b border-border">
       {jobs.map((job, i) => (
@@ -85,6 +137,7 @@ export function TrajectoryList({ jobs }: { jobs: Job[] }) {
           key={`${job.company}-${job.years}`}
           job={job}
           defaultOpen={i === 0}
+          milestonesLabel={milestonesLabel}
         />
       ))}
     </ol>

@@ -16,7 +16,10 @@ export function TrajectorySection() {
       label={t("Nav.trajectory")}
       description={t("Trajectory.intro")}
     >
-      <TrajectoryList jobs={jobs} />
+      <TrajectoryList
+        jobs={jobs}
+        milestonesLabel={t("Trajectory.milestones")}
+      />
       <p className="flex flex-wrap gap-6 pt-6 text-sm font-medium">
         <a
           href={siteConfig.links.linkedin}
