@@ -41,7 +41,13 @@ test("el header muestra email y CV recién después del hero", async ({
 test("el email de Contacto se copia y se anuncia", async ({
   page,
   context,
+  browserName,
 }) => {
+  // Solo Chromium deja dar permisos de portapapeles desde Playwright.
+  test.skip(
+    browserName !== "chromium",
+    "permisos de portapapeles solo en Chromium",
+  );
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/");
   const contacto = page.locator("#contacto");

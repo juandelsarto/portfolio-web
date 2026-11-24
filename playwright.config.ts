@@ -10,16 +10,27 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
-  reporter: process.env.CI ? "github" : "list",
+  reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
   use: {
     baseURL: `http://localhost:${PORT}`,
     trace: "on-first-retry",
   },
   projects: [
+    // QA cross-browser: el build de producción en Chromium, Firefox y WebKit (Safari).
     {
       name: "chromium",
       testIgnore: /work\.spec\.ts/,
       use: { ...devices["Desktop Chrome"] },
+    },
+    {
+      name: "firefox",
+      testIgnore: /work\.spec\.ts/,
+      use: { ...devices["Desktop Firefox"] },
+    },
+    {
+      name: "webkit",
+      testIgnore: /work\.spec\.ts/,
+      use: { ...devices["Desktop Safari"] },
     },
     {
       name: "borradores",
