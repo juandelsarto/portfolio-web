@@ -1,31 +1,66 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { Logo, type LogoPreset } from "@/components/site/logo/Logo";
+import { Logo } from "@/components/site/logo/Logo";
+import { ThemeToggle } from "@/components/site/theme-toggle";
 import { Button } from "@/components/ui/button";
+import tokens from "@/styles/tokens/tokens.json";
 
-const logoPresets: { preset: LogoPreset; label: string }[] = [
-  { preset: "auto", label: "Según la skin activa" },
-  { preset: "core", label: "Core" },
-  { preset: "neubrutalista-a", label: "Neubrutalista · Propuesta A" },
-  { preset: "neubrutalista-b", label: "Neubrutalista · Propuesta B" },
-];
 const logoSizes = ["w-4", "w-6", "w-8", "w-12", "w-24", "w-48"];
+const semanticTokens = Object.keys(tokens.semantic);
+const cssVar = (name: string) => `--${name.replaceAll("/", "-")}`;
 
 export const metadata: Metadata = {
   title: "Componentes (desarrollo)",
 };
 
-// Página interna para revisar componentes con los tokens. No se publica en
-// producción (VERCEL_ENV=production); sí se ve en local y en los previews.
+// Página interna para revisar tokens y componentes en los dos temas. No se
+// publica en producción (VERCEL_ENV=production); sí se ve en local y en los previews.
 export default function DevUiPage() {
   if (process.env.VERCEL_ENV === "production") notFound();
 
   return (
-    <main className="mx-auto flex max-w-3xl flex-col gap-8 p-8">
-      <h1 className="text-2xl font-semibold">Componentes</h1>
+    <main className="mx-auto flex max-w-4xl flex-col gap-12 p-8">
+      <header className="flex items-center justify-between gap-4">
+        <h1 className="text-4xl font-bold">Componentes</h1>
+        <ThemeToggle />
+      </header>
+
+      <section aria-labelledby="type" className="flex flex-col gap-3">
+        <h2 id="type" className="text-2xl font-semibold">
+          Tipografía
+        </h2>
+        <p className="font-display text-6xl font-bold">Juan Cruz Del Sarto</p>
+        <p className="font-display text-xl font-semibold">
+          Afacad Flux · títulos
+        </p>
+        <p className="text-base">
+          Nunito Sans · cuerpo. Del wireframe a production.
+        </p>
+        <p className="font-mono text-xs tracking-wide uppercase">
+          JetBrains Mono · etiquetas
+        </p>
+      </section>
+
+      <section aria-labelledby="colors" className="flex flex-col gap-4">
+        <h2 id="colors" className="text-2xl font-semibold">
+          Tokens semánticos
+        </h2>
+        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          {semanticTokens.map((name) => (
+            <li key={name} className="flex items-center gap-3">
+              <span
+                className="size-8 shrink-0 rounded-md border border-line-strong"
+                style={{ background: `var(${cssVar(name)})` }}
+              />
+              <code className="font-mono text-xs">{cssVar(name)}</code>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section aria-labelledby="buttons" className="flex flex-col gap-4">
-        <h2 id="buttons" className="text-lg font-medium">
+        <h2 id="buttons" className="text-2xl font-semibold">
           Button
         </h2>
         <div className="flex flex-wrap items-center gap-3">
@@ -38,20 +73,16 @@ export default function DevUiPage() {
           <Button disabled>Deshabilitado</Button>
         </div>
       </section>
-      <section aria-labelledby="logo" className="flex flex-col gap-6">
-        <h2 id="logo" className="text-lg font-medium">
+
+      <section aria-labelledby="logo" className="flex flex-col gap-4">
+        <h2 id="logo" className="text-2xl font-semibold">
           Logo
         </h2>
-        {logoPresets.map(({ preset, label }) => (
-          <div key={preset} className="flex flex-col gap-2">
-            <h3 className="text-sm text-muted-foreground">{label}</h3>
-            <div className="flex flex-wrap items-end gap-4">
-              {logoSizes.map((size) => (
-                <Logo key={size} preset={preset} className={size} />
-              ))}
-            </div>
-          </div>
-        ))}
+        <div className="flex flex-wrap items-end gap-4">
+          {logoSizes.map((size) => (
+            <Logo key={size} className={size} />
+          ))}
+        </div>
       </section>
     </main>
   );

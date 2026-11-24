@@ -18,7 +18,7 @@ Roadmap reescrito el 22 nov: piezas propias, cortas y terminadas; la experiencia
 - **Piezas del lanzamiento (Etapa 6):** Boarding RSVP (app, Etapa 3), Calendario familiar, Extractor de paleta y Cuotas o contado (Etapa 4). Después, de a una: Combinador tipográfico, Asesor de raquetas y Editor de SVG.
 - **Trayectoria:** un puesto por fila con empresa, rol, años y un resumen breve de la labor; el detalle se despliega. Se cuenta qué se hizo y en qué tipo de producto, sin nombrar clientes ni usar código de las empresas.
 - **Página de pieza (plantilla única):** Ficha (tipo, rol, versión, stack, links) · Demo embebida · Por qué lo hice · Decisiones (2 a 4) · Cómo funciona (opcional en piezas chicas) · Números (solo reales y medidos) · Qué aprendí y qué sigue. Cierre con anterior y siguiente, también con teclado. El Asesor de raquetas suma en Cómo funciona el diagrama del agente y el video del modo con LLM local.
-- **Identidad visual:** una sola identidad (Core) con tema claro y oscuro, elegido con `data-theme` en `<html>`, sin parpadeo al cargar. Paleta Core: fondo `#f8f8fa` / navy `#041020`, texto navy / `#f8f8fa`, acento naranja `#c03b16` / `#e7552e`. Tipografía: títulos en Afacad Flux (Bold desde 36 px, SemiBold debajo), cuerpo en Nunito Sans y mono en JetBrains Mono. Tokens en Figma: colecciones `Primitivos` y `Semánticos` (modos Claro y Oscuro), con la sintaxis CSS en cada variable (`var(--color-bg-page)`, etc.). Favicon: monograma JC en Afacad Flux, sin fondo, color acento. Ya no hay skins: el código que todavía las menciona (`data-skin`, logo por skin, `docs/motion.md`) se simplifica en la Etapa 2.
+- **Identidad visual:** una sola identidad (Core) con tema claro y oscuro, elegido con `data-theme` en `<html>`, sin parpadeo al cargar. Paleta Core: fondo `#f8f8fa` / navy `#041020`, texto navy / `#f8f8fa`, acento naranja `#c03b16` / `#e7552e`. Tipografía: títulos en Afacad Flux (Bold desde 36 px, SemiBold debajo), cuerpo en Nunito Sans y mono en JetBrains Mono. Tokens en Figma: colecciones `Primitivos` y `Semánticos` (modos Claro y Oscuro), con la sintaxis CSS en cada variable (`var(--color-bg-page)`, etc.). Favicon: monograma JC en Afacad Flux, sin fondo, color acento. Ya no hay skins.
 - **Idiomas:** `/es` por defecto; `/en` completo antes del lanzamiento (Etapa 5).
 - **Contenido:** cada pieza es un MDX con su ficha en el frontmatter validado con Zod y su demo. En producción solo se ven las piezas publicadas; nunca un estado vacío ni "Próximamente".
 - **Reglas de cada pieza:** entra en 1 a 3 fines de semana (si no, se recorta), se publica terminada y crece por versiones. Demos sin backend: datos ficticios en un adaptador local.
@@ -40,6 +40,7 @@ Node 22 y pnpm (versión fijada en `packageManager`; activar con `corepack enabl
 - `pnpm format` / `pnpm format:check`: Prettier (ordena las clases de Tailwind).
 - `pnpm typecheck`: genera los tipos de rutas de Next (`next typegen`) y corre `tsc --noEmit`.
 - `pnpm test`: tests unitarios con Vitest (`tests/unit/` y `src/**/*.test.ts`).
+- `pnpm tokens:build` / `pnpm logo:build`: regeneran `tokens.css` y `logo-markup.ts` desde sus fuentes.
 - `pnpm test:e2e`: tests end-to-end con Playwright (`tests/e2e/`); la primera vez, `pnpm exec playwright install chromium`.
 
 El CI (`.github/workflows/ci.yml`) corre install, lint, formato, typecheck, test y build en cada PR. Husky + lint-staged corren ESLint y Prettier sobre los archivos del commit.
@@ -50,7 +51,7 @@ El CI (`.github/workflows/ci.yml`) corre install, lint, formato, typecheck, test
 - `src/components/ui`: componentes de shadcn/ui.
 - `src/components/site`: componentes propios del sitio.
 - `src/styles/globals.css`: Tailwind v4 (CSS-first), `@theme inline` que conecta las variables con las utilidades y la variante `dark` ligada a `data-theme="dark"`.
-- `src/styles/tokens`: tokens de diseño. Hoy hay solo `placeholder.css` (temporal) hasta la tarjeta de tokens de la Etapa 1.
+- `src/styles/tokens`: tokens de color. `tokens.json` (exportado de Figma: primitivos y semánticos en claro y oscuro) es la fuente; `pnpm tokens:build` genera `tokens.css`. En `globals.css`, `@theme inline` los conecta con las utilidades (nombres de shadcn más roles propios: `bg-inverse`, `bg-selected`, `text-brand`, `border-line-strong`…).
 - `src/content`: piezas en MDX.
 - `src/lib`: utilidades y configuración (`site.ts`: nombre, metadatos, `indexable`).
 - `tests/unit` y `tests/e2e`.

@@ -1,43 +1,69 @@
+@layer tokens;
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "./tokens/placeholder.css";
+@import "./tokens/tokens.css";
 
-/* El modo oscuro se activa con data-theme="dark" en <html>, no con la preferencia del sistema. */
+/* El modo oscuro se activa con data-theme="dark" en <html> (ver ThemeScript). */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /*
- * Puente entre las variables CSS y las utilidades de Tailwind (bg-primary,
- * text-muted-foreground, rounded-lg…). Los componentes solo usan estas
- * utilidades: nunca colores, radios ni sombras sueltos.
+ * Puente entre los tokens semánticos (tokens.css, exportados de Figma) y las
+ * utilidades de Tailwind. Los componentes solo usan estas utilidades: nunca
+ * colores, radios ni tipografías sueltos.
+ *
+ * - Nombres de shadcn/ui (background, primary, muted…) para que sus
+ *   componentes funcionen sin cambios.
+ * - Nombres propios del sitio para los roles que shadcn no tiene
+ *   (inverse, selected, brand, overlay…).
  */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
+  /* shadcn/ui */
+  --color-background: var(--color-bg-page);
+  --color-foreground: var(--color-text-primary);
+  --color-card: var(--color-bg-page);
+  --color-card-foreground: var(--color-text-primary);
+  --color-popover: var(--color-bg-page);
+  --color-popover-foreground: var(--color-text-primary);
+  --color-primary: var(--color-bg-accent);
+  --color-primary-foreground: var(--color-text-on-accent);
+  --color-secondary: var(--color-bg-subtle);
+  --color-secondary-foreground: var(--color-text-primary);
+  --color-muted: var(--color-bg-subtle);
+  --color-muted-foreground: var(--color-text-muted);
+  --color-accent: var(--color-bg-subtle);
+  --color-accent-foreground: var(--color-text-primary);
+  --color-destructive: var(--color-bg-danger);
+  --color-destructive-foreground: var(--color-text-on-danger);
+  --color-border: var(--color-border-default);
+  --color-input: var(--color-border-strong);
+  --color-ring: var(--color-focus);
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  /* Roles propios del sitio */
+  --color-foreground-secondary: var(--color-text-secondary);
+  --color-brand: var(--color-text-accent);
+  /* Ojo: los nombres del tema no pueden repetir los de tokens.css. */
+  --color-line-strong: var(--color-border-strong);
+  --color-line-contrast: var(--color-border-contrast);
+  --color-placeholder: var(--color-bg-placeholder);
+  --color-overlay: var(--color-bg-overlay);
+  --color-inverse: var(--color-bg-inverse);
+  --color-inverse-foreground: var(--color-text-on-inverse);
+  --color-inverse-muted: var(--color-text-on-inverse-muted);
+  --color-inverse-border: var(--color-border-on-inverse);
+  --color-inverse-fill: var(--color-fill-on-inverse);
+  --color-selected: var(--color-bg-selected);
+  --color-selected-foreground: var(--color-text-on-selected);
+  --color-danger: var(--color-text-danger);
 
-  --font-sans: var(--font-sans-stack);
-  --font-mono: var(--font-mono-stack);
+  /* Radios (Core: 4 · 8 · 16) */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+
+  /* Tipografía: next/font define las variables en <html> (ver layout.tsx). */
+  --font-display: var(--font-afacad-flux), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-nunito-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 }
 
 @layer base {
@@ -47,5 +73,18 @@
 
   body {
     @apply bg-background font-sans text-foreground antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+  }
+
+  /* El logo toma el color de acento en los dos temas (Core). */
+  :root {
+    --logo-line: var(--color-text-accent);
+    --logo-hair: var(--color-text-accent);
   }
 }

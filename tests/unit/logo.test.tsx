@@ -30,31 +30,12 @@ describe("Logo", () => {
     expect(html).not.toContain("<title>");
   });
 
-  it("aplica el preset pedido", () => {
-    expect(renderToStaticMarkup(<Logo />)).toContain('data-preset="auto"');
-    expect(renderToStaticMarkup(<Logo preset="neubrutalista-b" />)).toContain(
-      'data-preset="neubrutalista-b"',
+  it("tiene una sola variante por parte (Core, sin skins)", () => {
+    const parts = [...svgFile.matchAll(/data-part="(\w+)"/g)].map((m) => m[1]);
+    expect(parts.sort()).toEqual(
+      ["beard", "brows", "glasses", "hair", "mustache"].sort(),
     );
-  });
-
-  it("tiene todas las partes y una variante de cada parte para Core", () => {
-    for (const part of [
-      "brows",
-      "hair",
-      "glasses",
-      "mustache",
-      "beard",
-      "extra",
-    ]) {
-      expect(svgFile).toContain(`data-part="${part}"`);
-    }
-    const coreParts = [...svgFile.matchAll(/<(?:g|path)\b[^>]*>/g)]
-      .map((m) => m[0])
-      .filter((tag) => /data-in="[^"]*\bcore\b/.test(tag))
-      .map((tag) => /data-part="(\w+)"/.exec(tag)?.[1]);
-    expect(new Set(coreParts)).toEqual(
-      new Set(["hair", "glasses", "mustache", "beard"]),
-    );
+    expect(svgFile).not.toMatch(/data-in=|data-preset=|data-skin/);
   });
 
   it("no tiene colores fijos: todo sale de variables CSS", () => {

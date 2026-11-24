@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 
+import { fontVariables } from "@/lib/fonts";
 import { siteConfig } from "@/lib/site";
+import { themeScript } from "@/lib/theme";
 
 import "@/styles/globals.css";
 
@@ -21,7 +23,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang={siteConfig.locale}>
+    // data-theme lo pone themeScript antes de hidratar: por eso
+    // suppressHydrationWarning en <html>.
+    <html
+      lang={siteConfig.locale}
+      className={fontVariables}
+      suppressHydrationWarning
+    >
+      <head>
+        {/* Script propio y estático, sin datos de usuarios. */}
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>{children}</body>
     </html>
   );
