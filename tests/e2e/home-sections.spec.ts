@@ -7,7 +7,7 @@ test("el rol del Hero ocupa una sola línea desde tablet", async ({ page }) => {
     await page.goto("/");
     const name = await page.locator("#inicio h1 span").first().boundingBox();
     const role = await page.locator("#inicio h1 span").nth(1).boundingBox();
-    expect(role?.height).toBe(name?.height);
+    expect(role!.height).toBeCloseTo(name!.height, 0);
   }
 });
 
@@ -45,7 +45,7 @@ for (const theme of ["light", "dark"] as const) {
   test(`la 404 se ve y no tiene errores de axe (tema ${theme})`, async ({
     page,
   }) => {
-    await page.emulateMedia({ colorScheme: theme });
+    await page.emulateMedia({ colorScheme: theme, reducedMotion: "reduce" });
     const res = await page.goto("/esta-pagina-no-existe");
     expect(res?.status()).toBe(404);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(

@@ -70,7 +70,7 @@ for (const theme of ["light", "dark"] as const) {
   test(`Trabajo y la página de pieza no tienen errores de axe (tema ${theme})`, async ({
     page,
   }) => {
-    await page.emulateMedia({ colorScheme: theme });
+    await page.emulateMedia({ colorScheme: theme, reducedMotion: "reduce" });
     await page.goto("/es");
     await page.locator("#trabajo").scrollIntoViewIfNeeded();
     expect(
