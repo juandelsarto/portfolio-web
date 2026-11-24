@@ -1,6 +1,8 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
+import { publishedPieces } from "./pieces";
+
 test("el rol del Hero ocupa una sola línea desde tablet", async ({ page }) => {
   for (const width of [768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
@@ -20,9 +22,13 @@ test("el Hero tiene los CTAs del copy v6", async ({ page }) => {
   await expect(
     hero.getByRole("button", { name: "Copiar email" }),
   ).toBeVisible();
-  // En producción, sin piezas publicadas, no hay "Ver trabajo" ni sección Trabajo.
-  await expect(hero.getByRole("link", { name: /Ver trabajo/ })).toHaveCount(0);
-  await expect(page.locator("#trabajo")).toHaveCount(0);
+  // En producción, "Ver trabajo" y la sección Trabajo existen solo si hay
+  // piezas publicadas (nunca un estado vacío).
+  const expected = publishedPieces.length > 0 ? 1 : 0;
+  await expect(hero.getByRole("link", { name: /Ver trabajo/ })).toHaveCount(
+    expected,
+  );
+  await expect(page.locator("#trabajo")).toHaveCount(expected);
 });
 
 test("Sobre mí tiene los cinco principios y las herramientas", async ({
