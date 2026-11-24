@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { EmailCopy } from "@/components/site/email-copy";
 import { Logo } from "@/components/site/logo/Logo";
+import { Monogram } from "@/components/site/monogram";
 import { ThemeToggle } from "@/components/site/theme-toggle";
 import { Button } from "@/components/ui/button";
 import tokens from "@/styles/tokens/tokens.json";
@@ -66,11 +68,24 @@ export default function DevUiPage() {
         <div className="flex flex-wrap items-center gap-3">
           <Button>Primario</Button>
           <Button variant="secondary">Secundario</Button>
-          <Button variant="outline">Contorno</Button>
+          <Button variant="outline">Contorno (secundario de Figma)</Button>
           <Button variant="ghost">Fantasma</Button>
           <Button variant="link">Enlace</Button>
           <Button variant="destructive">Destructivo</Button>
           <Button disabled>Deshabilitado</Button>
+        </div>
+      </section>
+
+      <section aria-labelledby="email" className="flex flex-col gap-4">
+        <h2 id="email" className="text-2xl font-semibold">
+          Email copiable y monograma
+        </h2>
+        <div className="flex flex-wrap items-center gap-6">
+          <Monogram />
+          <EmailCopy />
+        </div>
+        <div className="rounded-lg bg-inverse p-8">
+          <EmailCopy size="grande" />
         </div>
       </section>
 
