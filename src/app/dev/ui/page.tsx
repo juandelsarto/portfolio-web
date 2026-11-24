@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { EmailCopy } from "@/components/site/email-copy";
 import { Logo } from "@/components/site/logo/Logo";
+import { LogoSkins } from "@/components/site/logo/logo-skins";
 import { ThemeToggle } from "@/components/site/theme-toggle";
 import { Button } from "@/components/ui/button";
 import tokens from "@/styles/tokens/tokens.json";
@@ -66,11 +68,26 @@ export default function DevUiPage() {
         <div className="flex flex-wrap items-center gap-3">
           <Button>Primario</Button>
           <Button variant="secondary">Secundario</Button>
-          <Button variant="outline">Contorno</Button>
+          <Button variant="outline">Contorno (secundario de Figma)</Button>
           <Button variant="ghost">Fantasma</Button>
           <Button variant="link">Enlace</Button>
           <Button variant="destructive">Destructivo</Button>
           <Button disabled>Deshabilitado</Button>
+        </div>
+      </section>
+
+      <section aria-labelledby="email" className="flex flex-col gap-4">
+        <h2 id="email" className="text-2xl font-semibold">
+          Email copiable
+        </h2>
+        <div className="flex flex-wrap items-center gap-6">
+          <EmailCopy />
+        </div>
+        <div
+          data-theme="dark"
+          className="rounded-lg bg-background p-8 text-foreground"
+        >
+          <EmailCopy size="grande" />
         </div>
       </section>
 
@@ -83,6 +100,10 @@ export default function DevUiPage() {
             <Logo key={size} className={size} />
           ))}
         </div>
+        <p className="text-sm text-muted-foreground">
+          Con el puntero encima recorre las skins archivadas (una cada 0,7 s):
+        </p>
+        <LogoSkins className="w-32" />
       </section>
     </main>
   );

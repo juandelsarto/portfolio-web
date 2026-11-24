@@ -1,33 +1,31 @@
 # Logo
 
-El logo es un dibujo de la cara de Juan: pelo, cejas, anteojos, bigote y barba. Es de un solo color, el acento de la paleta Core (`--color-text-accent`), en los dos temas.
+El logo es la cara de Juan, de un solo color: el acento de la paleta Core (`--color-text-accent`, que vale `#c03b16` en claro y `#e7552e` en oscuro).
 
-- **Fuente única:** `src/components/site/logo/logo.svg`.
-- **Componente:** `Logo` (`src/components/site/logo/Logo.tsx`).
-- **Figma:** component set `Logo`, variante `Skin=Core` (claro y oscuro), en la página Design System.
-- **Favicon de 16 y 32 px:** monograma JC en Afacad Flux, sin fondo y en color acento (frame "Marca" en Figma). A ese tamaño la cara no se lee.
+Tiene dos dibujos, uno por tema, igual que el componente `Logo` de Figma (página Design System):
 
-## Estructura
+| Tema   | Figma         | Archivo                                   | Dibujo                                       |
+| ------ | ------------- | ----------------------------------------- | -------------------------------------------- |
+| Claro  | `Tema=Claro`  | `src/components/site/logo/logo-light.svg` | el original                                  |
+| Oscuro | `Tema=Oscuro` | `src/components/site/logo/logo-dark.svg`  | el mismo dibujo invertido, con borde externo |
 
-Un solo SVG (`viewBox="-4 -4 312 462"`). Cada parte es un elemento con `data-part` (`hair`, `brows`, `glasses`, `mustache`, `beard`) y `data-variant`, para poder animarlas o cambiarlas por separado más adelante.
+- **Componente:** `Logo` (`src/components/site/logo/Logo.tsx`). Renderiza los dos SVG y muestra el del tema activo con CSS (`dark:hidden` / `dark:block`, ligados a `data-theme` en `<html>`): no hay parpadeo al cargar ni JavaScript.
+- **Lienzo:** cuadrado (`viewBox="0 0 440 440"`). El tamaño lo da el contenedor: pasar un ancho con `className` (por ejemplo `w-8`).
+- **Color:** los SVG usan `fill="currentColor"` y el componente aplica `text-brand`. Sin colores fijos.
+- **Accesibilidad:** por defecto es `role="img"` con el nombre "Juan Cruz Del Sarto"; con `decorative` se oculta a lectores de pantalla (cuando el link ya nombra a Juan, como en el header).
+- **Dónde va:** en todo el sitio, incluido el header (siempre visible) y el favicon de 32 px.
+- **Favicon de 16 px:** es el único lugar del monograma JC (Afacad Flux, sin fondo, color acento; frame "Marca" en Figma), porque a ese tamaño la cara no se lee.
 
-Los colores salen de variables CSS, con `currentColor` como respaldo:
+## Skins archivadas
 
-| Variable        | Uso                                       | Valor actual          |
-| --------------- | ----------------------------------------- | --------------------- |
-| `--logo-line`   | contorno, cejas, anteojos, bigote y barba | `--color-text-accent` |
-| `--logo-hair`   | pelo                                      | `--color-text-accent` |
-| `--logo-accent` | reflejos del pelo                         | transparente          |
-| `--logo-skin`   | relleno de la cara                        | transparente          |
+Los logos de las skins anteriores a Core (Cassette, Y2K, Neon, Brutal y Editorial) quedan en Figma como `Archivo · Logo (skins)` y no se usan como logo.
 
-## Uso
+`LogoSkins` (`src/components/site/logo/logo-skins.tsx`) envuelve al `Logo` y, mientras el puntero está encima, los recorre uno cada 0,7 s según el tema activo (Y2K no tiene versión oscura: usa la clara). Al salir vuelve al logo. Con `prefers-reduced-motion: reduce` no cambia, y en pantallas táctiles no se activa. Las imágenes (`public/logo/skins/*.webp`, 192 × 192, exportadas de Figma) se cargan recién en el primer hover. Se usa en el header.
 
-```tsx
-<Logo className="w-8" />
-<Logo decorative className="w-8" /> // dentro de un link que ya tiene aria-label
-```
+En Figma, el set de archivo tiene la misma interacción en el prototipo: al entrar el puntero empieza a cambiar cada 0,7 s y al salir vuelve a la primera variante.
 
-## Cambiar el logo
+## Actualizar el logo
 
-1. Editar `logo.svg` (o exportarlo de Figma sobre el mismo lienzo de 312 × 462), sin colores fijos: solo las clases `f-line`, `f-hair`, `f-accent`, `f-skin` y `s-line`.
-2. Correr `pnpm logo:build` para regenerar `logo-markup.ts`; un test verifica que estén sincronizados.
+1. Exportar las variantes `Tema=Claro` y `Tema=Oscuro` de Figma como SVG, cambiar el color por `fill="currentColor"` en el `<svg>` y sacar el `clip-path`.
+2. Reemplazar `logo-light.svg` y `logo-dark.svg`.
+3. Correr `pnpm logo:build` (regenera `logo-markup.ts`) y `pnpm test`.

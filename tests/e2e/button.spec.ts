@@ -10,7 +10,7 @@ test("el Button toma sus colores de las variables del tema", async ({
 
   const { background, primary } = await button.evaluate((el) => {
     const probe = document.createElement("div");
-    probe.style.backgroundColor = "var(--primary)";
+    probe.style.backgroundColor = "var(--color-bg-accent)";
     document.body.append(probe);
     const primary = getComputedStyle(probe).backgroundColor;
     probe.remove();
