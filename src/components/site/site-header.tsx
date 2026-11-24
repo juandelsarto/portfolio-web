@@ -36,11 +36,11 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <ThemeToggle />
           <HeaderAfterHero />
           <Button asChild className="hidden md:inline-flex">
             <Link href="/#contacto">Contacto</Link>
           </Button>
+          <ThemeToggle />
         </div>
       </div>
     </header>
