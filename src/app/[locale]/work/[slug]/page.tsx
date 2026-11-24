@@ -33,6 +33,35 @@ export async function generateMetadata({
   };
 }
 
+// Estilos del cuerpo MDX ("Cómo funciona"), con tokens.
+const mdxComponents = {
+  p: (props: React.ComponentProps<"p">) => (
+    <p className="[&:not(:first-child)]:mt-4" {...props} />
+  ),
+  pre: (props: React.ComponentProps<"pre">) => (
+    <pre
+      className="mt-4 overflow-x-auto rounded-sm border border-border bg-muted p-4 font-mono text-sm leading-relaxed text-foreground"
+      {...props}
+    />
+  ),
+  code: (props: React.ComponentProps<"code">) => (
+    <code className="font-mono text-[0.9em]" {...props} />
+  ),
+  a: ({ children, ...props }: React.ComponentProps<"a">) => (
+    <a className="text-brand underline underline-offset-4" {...props}>
+      {children}
+    </a>
+  ),
+  img: (props: React.ComponentProps<"img">) => (
+    // eslint-disable-next-line @next/next/no-img-element -- diagramas del MDX, con su alt
+    <img
+      className="mt-4 w-full rounded-sm border border-border"
+      alt=""
+      {...props}
+    />
+  ),
+};
+
 const prose =
   "max-w-[47.5rem] text-lg leading-relaxed text-foreground-secondary md:text-[1.1875rem]";
 const label =
@@ -51,7 +80,8 @@ export default async function PiecePage({
   const t = await getTranslations({ locale, namespace: "Piece" });
   const w = await getTranslations({ locale, namespace: "Work" });
   const how = piece.body
-    ? (await compileMDX({ source: piece.body })).content
+    ? (await compileMDX({ source: piece.body, components: mdxComponents }))
+        .content
     : null;
 
   // Secciones de la plantilla: solo las que tienen contenido, numeradas en orden.
