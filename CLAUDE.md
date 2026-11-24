@@ -43,7 +43,7 @@ Node 22 y pnpm (versión fijada en `packageManager`; activar con `corepack enabl
 - `pnpm tokens:build` / `pnpm logo:build`: regeneran `tokens.css` y `logo-markup.ts` desde sus fuentes.
 - `pnpm test:e2e`: tests end-to-end con Playwright (`tests/e2e/`) contra el build de producción; `work.spec.ts` corre contra `pnpm dev` (puerto 3200) para ver los borradores. La primera vez, `pnpm exec playwright install chromium`.
 
-El CI (`.github/workflows/ci.yml`) corre install, lint, formato, typecheck, test y build en cada PR. Husky + lint-staged corren ESLint y Prettier sobre los archivos del commit.
+El CI (`.github/workflows/ci.yml`) corre install, lint, formato, typecheck, test y build en cada PR, y un segundo job con los tests end-to-end (axe en los dos temas, teclado, reflow desde 320 px) en Chromium, Firefox y WebKit. Husky + lint-staged corren ESLint y Prettier sobre los archivos del commit.
 
 **Deploy (Vercel):** cada PR tiene su preview (el bot de Vercel comenta el link en el PR; ahí se ven los borradores de Trabajo) y `main` se publica sola en producción. Nada se indexa: meta `robots`, `robots.txt` y el header `X-Robots-Tag` salen de `siteConfig.indexable`, que solo pasa a `true` con `NEXT_PUBLIC_INDEXABLE=true` en producción (Etapa 6). Las URLs absolutas de los metadatos usan la del deploy (`getBaseUrl()` en `src/lib/site.ts`).
 
