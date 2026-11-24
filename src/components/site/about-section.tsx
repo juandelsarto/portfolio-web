@@ -1,5 +1,4 @@
 import { HomeSection } from "@/components/site/home-section";
-import { InfoIcon } from "@/components/site/icons";
 import { about } from "@/content/home";
 
 const subLabel =
@@ -46,14 +45,10 @@ export function AboutSection() {
           <aside
             role="note"
             aria-label={about.noteLabel}
-            className="mt-4 flex items-start gap-3 rounded-sm border border-l-4 border-border border-l-brand bg-muted px-5 py-4"
+            className="mt-4 flex items-start rounded-sm border border-l-4 border-border border-l-brand bg-muted p-6"
           >
-            <InfoIcon className="mt-0.5 size-5 shrink-0 text-brand" />
             <div className="flex flex-col gap-1">
-              <p className="font-mono text-xs font-medium tracking-wide uppercase">
-                {about.noteLabel}
-              </p>
-              <p className="font-display text-xl font-semibold">
+              <p className="font-display text-2xl font-semibold">
                 {about.closing}
               </p>
             </div>
