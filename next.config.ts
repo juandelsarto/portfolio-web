@@ -7,7 +7,7 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  // Hasta el lanzamiento (Etapa 6) nada se indexa: además del meta robots,
+  // Hasta el lanzamiento (Etapa 7) nada se indexa: además del meta robots,
   // un header en todas las respuestas (incluidos los previews de Vercel).
   async headers() {
     if (siteConfig.indexable) return [];

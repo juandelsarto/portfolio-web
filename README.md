@@ -10,7 +10,7 @@ Next.js (App Router) · TypeScript · pnpm · Tailwind v4 + shadcn/ui (Radix) ·
 
 ## Estado
 
-En construcción. El lanzamiento (Etapa 6 del roadmap) llega con 4 piezas, la Trayectoria y la versión en inglés.
+En construcción. El lanzamiento (Etapa 7 del roadmap) llega con 4 piezas, la Trayectoria y la versión en inglés.
 
 ## Licencia
 
